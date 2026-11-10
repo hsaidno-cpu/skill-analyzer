@@ -18,6 +18,7 @@ PROFILES = {
     "cursor": (".cursor/skills", "Cursor / Agent Skills"),
     "portable": ("skills", "Generic Agent Skills package"),
     "gemini": ("skills", "Gemini CLI extension"),
+    "cloud": ("skills", "Universal Cloud Gateway service"),
 }
 
 ENTRYPOINTS = {
@@ -85,6 +86,21 @@ def export_one(name: str, output: Path, version: str, description: str) -> list[
             str((profile_root / "GEMINI.md").relative_to(output)),
             str((profile_root / "commands").relative_to(output)),
             str(manifest_path.relative_to(output)),
+        ])
+
+    if name == "cloud":
+        copy_tree(ROOT / "service", profile_root / "service")
+        for filename in ("Dockerfile", "CLOUD_DEPLOYMENT.md", "CLOUD_ARCHITECTURE.md",
+                         "requirements-cloud.txt", ".env.example", ".dockerignore"):
+            copy_file(ROOT / filename, profile_root / filename)
+        written.extend([
+            str((profile_root / "service").relative_to(output)),
+            str((profile_root / "Dockerfile").relative_to(output)),
+            str((profile_root / "CLOUD_DEPLOYMENT.md").relative_to(output)),
+            str((profile_root / "CLOUD_ARCHITECTURE.md").relative_to(output)),
+            str((profile_root / "requirements-cloud.txt").relative_to(output)),
+            str((profile_root / ".env.example").relative_to(output)),
+            str((profile_root / ".dockerignore").relative_to(output)),
         ])
 
     profile_text = (
