@@ -1,6 +1,6 @@
 # SKILL ANALYZER — Cross-Platform Distribution
 
-**Release:** 1.1.0  
+**Release:** 1.2.0  
 **Canonical format:** Agent Skills (SKILL.md)  
 **Canonical skill source:** skills/  
 **Invocation contract:** urn:skill-analyzer:invocation:v1
@@ -22,7 +22,7 @@ SKILL ANALYZER is authored once in a vendor-neutral skill layout. The Universal 
 | VS Code | Path supported by active harness | Harness-dependent skill picker or explicit skill name | VS Code is a host shell, not one uniform agent runtime. |
 | Other Agent Skills clients | Client-documented skill directory | Natural language or client-native selection | Conditional; verify the client specification and runtime. |
 
-The portable contract includes SKILL.md, references, scripts, and assets. It does not guarantee uniform tools, memory, schedules, browsing, filesystem access, agent delegation, or enforcement.
+The portable contract includes SKILL.md, references, scripts, and assets. It does not guarantee uniform tools, memory, schedules, browsing, filesystem access, agent delegation, or enforcement. For callers that do not want local skill installation, the hosted Remote MCP + HTTP Gateway is an alternative once deployed.
 
 ## Universal AI Invocation Gateway
 
@@ -97,3 +97,10 @@ A platform name, skill file, manifest, or successful export does not prove that 
 - Do not add host-specific tool names to the portable core unless clearly marked and mapped through an adapter.
 - Re-check official platform documentation before major releases.
 - Mark a platform VERIFIED only for tested behavior on a recorded host/version/surface; otherwise use NOT_TESTED or NOT_CHECKED.
+
+
+## Hosted cloud access without local adapters
+
+The `remote-gateway` profile points to the hosted service contract. After deployment, any MCP-compatible client can connect directly to `https://YOUR_DOMAIN/mcp`; an ordinary HTTP client can call `https://YOUR_DOMAIN/v1/invoke`. Both interfaces share one origin, the same command registry, the same OIDC bearer-token verification, and the same central routing implementation.
+
+No local skill package or platform-specific exporter is required for remote callers. The caller still needs an OAuth 2.1/OIDC token with `analyzer:invoke`, and the operator must configure the external identity provider, model provider, Redis, and public DNS. The repository contains a deployable service package, not a pre-provisioned public cloud instance. See [CLOUD_DEPLOYMENT.md](CLOUD_DEPLOYMENT.md).
