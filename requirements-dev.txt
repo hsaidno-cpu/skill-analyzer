@@ -1,0 +1,2 @@
+# Dependencies required by the repository's test suite.
+jsonschema>=4.21,<5
