@@ -2,7 +2,7 @@
   "interface": {
     "displayName": "SKILL ANALYZER",
     "shortDescription": "Portable analysis engine",
-    "longDescription": "SKILL ANALYZER 1.0.0 mempertahankan sepuluh spesialis analisis inti dan lima cross-skill engine. Paket memakai struktur Agent Skills berbasis SKILL.md sebagai sumber instruksi kanonis, dengan panduan kompatibilitas dan exporter untuk OpenAI/Codex, Claude Code, GitHub Copilot, Gemini CLI, VS Code, dan Cursor. Adapter memetakan lokasi skill dan konteks host tanpa mengasumsikan bahwa tool-calling, sub-agent, persistensi, browsing, atau enforcement tersedia seragam. Evidence Registry, Residual Unknowns, Trace Graph, FIRE, Capability Readiness, Change Impact, Controlled Experiment, dan Information Authenticator tetap menjadi kontrol analitis inti.",
+    "longDescription": "SKILL ANALYZER 1.1.0 menggabungkan sepuluh spesialis analisis inti, lima cross-skill engine, serta Universal AI Invocation Gateway. Gateway menyediakan command registry kanonis, alias normalization, adapter platform, JSON invocation envelope, dan CLI untuk menghasilkan prompt atau request terstruktur. skills/ dan gateway/ menjadi sumber kanonis. Adapter tersedia untuk OpenAI/Codex, Claude Code, GitHub Copilot, Gemini CLI, VS Code, Cursor, ChatGPT package, dan generic Agent Skills clients. Gateway mempersiapkan routing, bukan menjalankan model call, memberikan permission, atau menjamin runtime behavior. Evidence Registry, Residual Unknowns, Trace Graph, FIRE, Capability Readiness, Change Impact, Controlled Experiment, dan Information Authenticator tetap menjadi kontrol analitis inti.",
     "developerName": "Hary Saidno",
     "category": "Productivity",
     "capabilities": [
@@ -15,8 +15,8 @@
     ]
   },
   "name": "skill-analyzer",
-  "version": "1.0.0",
-  "description": "Sistem analisis modular lintas-domain dengan sepuluh spesialis inti dan lima engine. Menggunakan Agent Skills sebagai format portabel, adapter untuk OpenAI/Codex, Claude Code, GitHub Copilot, Gemini CLI, VS Code, dan Cursor, serta assurance berbasis evidence.",
+  "version": "1.1.0",
+  "description": "Sistem analisis modular dengan sepuluh spesialis, lima engine, Universal AI Invocation Gateway, dan adapter Agent Skills lintas platform.",
   "author": {
     "name": "Hary Saidno",
     "email": "harysaidno@gmail.com"
@@ -99,7 +99,13 @@
     "openai api",
     "interoperability",
     "portable analysis",
-    "platform capability mapping"
+    "platform capability mapping",
+    "universal ai invocation gateway",
+    "invocation protocol",
+    "command registry",
+    "platform invocation adapter",
+    "structured invocation",
+    "cross-platform command routing"
   ],
   "skills": "./skills"
 }
