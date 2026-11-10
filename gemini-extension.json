@@ -1,0 +1,6 @@
+{
+  "name": "skill-analyzer",
+  "version": "1.1.0",
+  "contextFileName": "GEMINI.md",
+  "description": "Evidence-led modular analysis with the Universal AI Invocation Gateway, portable Agent Skills, and platform-specific command adapters."
+}
