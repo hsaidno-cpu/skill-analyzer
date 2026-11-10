@@ -120,6 +120,11 @@ def build_envelope(
         declarations[name] = status
 
     conditional = list(command.get("conditional_capabilities", []))
+    irrelevant = sorted(set(declarations) - set(conditional))
+    if irrelevant:
+        raise ValueError(
+            "Capability declarations not relevant to this command: " + ", ".join(irrelevant)
+        )
     statuses = {name: declarations.get(name, "NOT_CHECKED") for name in conditional}
     blocked = [name for name, status in statuses.items() if status in BLOCKING_STATUSES]
     normalized_mode = mode or command.get("default_mode", "adaptive")
@@ -160,7 +165,7 @@ def build_envelope(
             "conditional_capabilities": conditional,
             "statuses": statuses,
             "blocked_branches": blocked,
-            "source": "user_declared_or_runtime_observed"
+            "source": "user_declared" if declarations else "not_checked"
         },
         "execution": {
             "status": "PREPARED_NOT_EXECUTED",
