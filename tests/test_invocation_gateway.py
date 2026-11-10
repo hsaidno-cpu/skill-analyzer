@@ -41,6 +41,7 @@ class InvocationGatewayTests(unittest.TestCase):
             "audit", "sample target", self.registry, self.platforms
         )
         self.assertEqual(envelope["capability_readiness"]["statuses"]["web_search"], "NOT_CHECKED")
+        self.assertEqual(envelope["capability_readiness"]["source"], "not_checked")
 
     def test_blocked_capability_blocks_dependent_branch(self):
         envelope = invoke.build_envelope(
@@ -48,6 +49,14 @@ class InvocationGatewayTests(unittest.TestCase):
             capability_declarations=["web_search=UNAVAILABLE"]
         )
         self.assertIn("web_search", envelope["capability_readiness"]["blocked_branches"])
+        self.assertEqual(envelope["capability_readiness"]["source"], "user_declared")
+
+    def test_irrelevant_capability_declaration_is_rejected(self):
+        with self.assertRaises(ValueError):
+            invoke.build_envelope(
+                "audit", "sample target", self.registry, self.platforms,
+                capability_declarations=["mcp=READY"]
+            )
 
     def test_cli_never_claims_execution(self):
         envelope = invoke.build_envelope(
