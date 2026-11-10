@@ -89,6 +89,7 @@ class CloudGatewayTests(unittest.IsolatedAsyncioTestCase):
             "PUBLIC_BASE_URL": "http://127.0.0.1:8000",
             "MCP_RESOURCE_URL": "http://127.0.0.1:8000/mcp",
             "OIDC_AUDIENCE": "http://127.0.0.1:8000/mcp",
+            "OIDC_ISSUER_URL": "https://issuer.example.com/",
             "DEV_BEARER_TOKENS_JSON": json.dumps({
                 "local-test-token": {
                     "sub": "test-client",
