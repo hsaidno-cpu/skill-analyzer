@@ -19,6 +19,7 @@ class CloudGatewayTests(unittest.IsolatedAsyncioTestCase):
             "PUBLIC_BASE_URL": "http://127.0.0.1:8000",
             "MCP_RESOURCE_URL": "http://127.0.0.1:8000/mcp",
             "OIDC_AUDIENCE": "http://127.0.0.1:8000/mcp",
+            "OIDC_ISSUER_URL": "https://issuer.example.com/",
             "DEV_BEARER_TOKENS_JSON": json.dumps({
                 "local-test-token": {
                     "sub": "test-client",
@@ -109,6 +110,34 @@ class CloudGatewayTests(unittest.IsolatedAsyncioTestCase):
                 )
                 self.assertEqual(response.status_code, 200)
                 self.assertGreaterEqual(len(response.json()["commands"]), 11)
+
+                metadata = client.get("/.well-known/oauth-protected-resource/mcp")
+                self.assertEqual(metadata.status_code, 200)
+                self.assertEqual(
+                    metadata.json()["resource"],
+                    "http://127.0.0.1:8000/mcp",
+                )
+                self.assertIn(
+                    "https://issuer.example.com/",
+                    metadata.json()["authorization_servers"],
+                )
+
+                mcp_response = client.post(
+                    "/mcp",
+                    json={
+                        "jsonrpc": "2.0",
+                        "id": 1,
+                        "method": "initialize",
+                        "params": {
+                            "protocolVersion": "2025-03-26",
+                            "capabilities": {},
+                            "clientInfo": {"name": "gateway-test", "version": "1.0"},
+                        },
+                    },
+                    headers={"MCP-Protocol-Version": "2025-03-26"},
+                )
+                self.assertEqual(mcp_response.status_code, 401)
+                self.assertIn("WWW-Authenticate", mcp_response.headers)
 
     def test_production_configuration_fails_closed_without_oidc(self):
         env = {
