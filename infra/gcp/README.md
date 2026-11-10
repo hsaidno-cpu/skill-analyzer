@@ -2,6 +2,10 @@
 
 This directory provisions the production foundation for the SKILL ANALYZER Cloud Gateway.
 
+## Validation boundary
+
+The repository CI runs Terraform formatting, provider initialization, and schema validation without cloud credentials. It does not run a production plan or apply. A real plan/apply requires the operator's authenticated Google Cloud project and chosen domain/OIDC/provider values.
+
 ## Selected topology
 
 - Cloud Run Gen 2 in asia-southeast1 for the FastAPI + Remote MCP runtime.
