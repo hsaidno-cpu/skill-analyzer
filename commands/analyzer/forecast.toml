@@ -1,0 +1,3 @@
+prompt = """
+Use the SKILL ANALYZER Universal AI Invocation Gateway. Canonical command: forecast. Strategic topic and horizon: {{args}}. Route to strategic-foresight. Distinguish observed trends, assumptions, scenarios, probabilities, triggers, and predictions. State uncertainty and evidence limits.
+"""
