@@ -1,0 +1,3 @@
+prompt = """
+Use the SKILL ANALYZER Universal AI Invocation Gateway. Canonical command: decision. Decision, options, constraints, and goals: {{args}}. Activate Decision Intelligence. Compare status quo, alternatives, defer, pilot, and stop options where relevant. Expose trade-offs, unknowns, sensitivity, triggers, and human decision authority.
+"""
