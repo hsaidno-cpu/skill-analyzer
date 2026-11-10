@@ -58,7 +58,7 @@ python scripts/invoke.py resolve audit --target "SKILL ANALYZER repository" --ob
 # Build a machine-readable request envelope
 python scripts/invoke.py resolve compare --target "Option A versus Option B" --platform openai-api --format json
 
-# Record an explicitly observed capability. Unspecified capabilities remain NOT_CHECKED.
+# Declare a capability explicitly (this is not independently verified by the CLI). Unspecified capabilities remain NOT_CHECKED.
 python scripts/invoke.py resolve audit --target "Deployment workflow" --capability file_access=READY --capability web_search=UNAVAILABLE --format json
 ~~~~
 
@@ -167,7 +167,7 @@ An integration can send a JSON object with the following conceptual structure:
 }
 ~~~~
 
-For a complete validated structure, use the schema file. Capability statuses must come from user declaration or runtime observation, never from platform assumptions.
+For a complete validated structure, use the schema file. Capability statuses must come from user declaration or runtime observation, never from platform assumptions. The local CLI accepts user declarations only; downstream runtime adapters may record observations.
 
 ## 7. Orchestration and trust boundaries
 
