@@ -12,19 +12,38 @@ on:
       - ".github/workflows/validate-infrastructure.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
+      - name: Checkout source branch
         uses: actions/checkout@v7
+        with:
+          ref: \${{ github.head_ref || github.ref_name }}
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.9.8"
+
+      - name: Format Terraform files
+        run: terraform fmt -recursive infra/gcp
+
+      - name: Commit formatting changes to the source branch
+        if: github.event_name == 'pull_request'
+        env:
+          SOURCE_BRANCH: \${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$(git status --porcelain infra/gcp)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add infra/gcp
+            git commit -m "style: terraform fmt"
+            git push origin "HEAD:\${SOURCE_BRANCH}"
+          fi
 
       - name: Check Terraform formatting
         run: terraform fmt -check -recursive infra/gcp
