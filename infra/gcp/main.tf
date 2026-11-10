@@ -103,7 +103,9 @@ resource "google_redis_instance" "gateway" {
 resource "google_secret_manager_secret" "llm_api_key" {
   project   = var.project_id
   secret_id = local.secret_names.llm_api_key
-  replication { auto {} }
+  replication {
+    auto {}
+  }
   labels     = var.labels
   depends_on = [google_project_service.apis]
 }
@@ -111,7 +113,9 @@ resource "google_secret_manager_secret" "llm_api_key" {
 resource "google_secret_manager_secret" "audit_hash_salt" {
   project   = var.project_id
   secret_id = local.secret_names.audit_hash_salt
-  replication { auto {} }
+  replication {
+    auto {}
+  }
   labels     = var.labels
   depends_on = [google_project_service.apis]
 }
@@ -119,7 +123,9 @@ resource "google_secret_manager_secret" "audit_hash_salt" {
 resource "google_secret_manager_secret" "redis_url" {
   project   = var.project_id
   secret_id = local.secret_names.redis_url
-  replication { auto {} }
+  replication {
+    auto {}
+  }
   labels     = var.labels
   depends_on = [google_project_service.apis]
 }
