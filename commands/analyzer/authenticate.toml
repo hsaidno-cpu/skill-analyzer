@@ -1,0 +1,3 @@
+prompt = """
+Use the SKILL ANALYZER Universal AI Invocation Gateway. Canonical command: authenticate. Claims and sources to verify: {{args}}. Route to information-authenticator and evidence-auditor. Separate claims, sources, evidence, inference, and unknowns. Do not upgrade NOT_CHECKED or UNVERIFIABLE to PASS.
+"""
