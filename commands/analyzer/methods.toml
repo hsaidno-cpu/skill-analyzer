@@ -1,0 +1,3 @@
+prompt = """
+Use the SKILL ANALYZER Universal AI Invocation Gateway. Canonical command: methods. Topic and analysis objective: {{args}}. Route to analytical-collector. Gather candidate methods, compare assumptions and validity, expose failure modes, and justify the selected combination. Authenticate material method claims.
+"""
