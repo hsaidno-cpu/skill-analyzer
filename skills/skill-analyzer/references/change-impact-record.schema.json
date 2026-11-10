@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/change-impact-record.schema.json",
+  "title": "SKILL ANALYZER Change Impact Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "change_id",
+    "baseline",
+    "candidate",
+    "diff_entries",
+    "affected_requirements",
+    "affected_tests",
+    "test_selection_rationale",
+    "preservation_checks",
+    "status"
+  ],
+  "properties": {
+    "change_id": {
+      "type": "string",
+      "pattern": "^CHG-[A-Z0-9-]+$"
+    },
+    "baseline": {
+      "type": "object",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "release_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "artifact_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "environment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "required": [
+        "version"
+      ],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "release_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "artifact_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "environment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "diff_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path_or_component",
+          "change_type",
+          "impact"
+        ],
+        "properties": {
+          "path_or_component": {
+            "type": "string"
+          },
+          "change_type": {
+            "enum": [
+              "ADDITIVE",
+              "BEHAVIORAL",
+              "BREAKING",
+              "METADATA",
+              "DEPENDENCY",
+              "REFERENCE",
+              "REMOVAL",
+              "PRESERVED",
+              "UNKNOWN"
+            ]
+          },
+          "impact": {
+            "type": "string"
+          },
+          "evidence_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "affected_requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_tests": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "test_selection_rationale": {
+      "type": "string"
+    },
+    "preservation_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rollback_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "unknown_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "NOT_STARTED",
+        "IN_PROGRESS",
+        "COMPLETE",
+        "INCOMPLETE",
+        "BLOCKED"
+      ]
+    },
+    "release_disposition": {
+      "enum": [
+        "PASS",
+        "PASS_WITH_CAVEATS",
+        "HOLD",
+        "FAIL"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "COMPLETE"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "affected_tests": {
+            "minItems": 1
+          },
+          "preservation_checks": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

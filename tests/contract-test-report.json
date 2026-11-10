@@ -1,0 +1,29 @@
+{
+  "contract_version": "1.1.0",
+  "target_plugin_version": "0.9.0",
+  "test_layer": "STATIC_CONTRACT_AND_HARNESS_QUALITY_TEST",
+  "contract_cases_defined": 70,
+  "schema_documents_checked": 11,
+  "execution_ledger_records_validated": 70,
+  "static_tests_run": 50,
+  "passed": 50,
+  "failed": 0,
+  "errors": 0,
+  "status": "CONTRACT_AND_HARNESS_TEST_PASSED",
+  "schema_validator": "jsonschema",
+  "mutation_checks_run": 5,
+  "mutation_checks_caught": 5,
+  "host_scenarios_executed": 0,
+  "host_runtime_tested": false,
+  "internal_router_trace_available": false,
+  "e2e_execution_ledger_status": "NOT_RUN",
+  "registry_storage": "SCHEMA_AND_ARTIFACT_CONTRACT_ONLY",
+  "runtime_telemetry": "NOT_AVAILABLE_IN_PLUGIN_PACKAGE",
+  "limitations": [
+    "The 70 scenario definitions are not executed by this static/contract runner.",
+    "No ChatGPT host routing or engine activation was executed by this runner.",
+    "No internal router trace or hard middleware gate enforcement is available from this package-only test.",
+    "Persistent registry storage and host telemetry require an external authorized store/instrumentation."
+  ],
+  "failure_details": []
+}

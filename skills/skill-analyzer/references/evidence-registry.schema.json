@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/evidence-registry.schema.json",
+  "title": "SKILL ANALYZER Evidence Registry Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "evidence_type",
+    "provenance",
+    "collected_at",
+    "access_status",
+    "scope",
+    "claim_links",
+    "epistemic_status",
+    "limitations",
+    "record_version",
+    "record_status"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^EVD-[A-Z0-9-]+$"
+    },
+    "evidence_type": {
+      "enum": [
+        "source",
+        "document",
+        "dataset",
+        "observation",
+        "tool_output",
+        "test_result",
+        "measurement",
+        "testimony",
+        "artifact",
+        "derived_evidence"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "origin_type",
+        "locator"
+      ],
+      "properties": {
+        "origin_type": {
+          "enum": [
+            "user_supplied",
+            "external_source",
+            "internal_artifact",
+            "tool_observation",
+            "derived"
+          ]
+        },
+        "locator": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "author_or_publisher": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "artifact_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "checksum": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "checksum_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "collected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_date_or_period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "access_status": {
+      "enum": [
+        "direct",
+        "partial",
+        "indirect",
+        "unavailable"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "context",
+        "coverage"
+      ],
+      "properties": {
+        "context": {
+          "type": "string"
+        },
+        "coverage": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "time_range": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "acquisition_method": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "integrity_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check",
+          "performed",
+          "result"
+        ],
+        "properties": {
+          "check": {
+            "type": "string"
+          },
+          "performed": {
+            "type": "boolean"
+          },
+          "result": {
+            "type": "string"
+          },
+          "evidence_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "claim_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "relation"
+        ],
+        "properties": {
+          "claim_id": {
+            "type": "string"
+          },
+          "relation": {
+            "enum": [
+              "supports",
+              "contradicts",
+              "contextualizes",
+              "does_not_support"
+            ]
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "epistemic_status": {
+      "enum": [
+        "observed",
+        "source_claim",
+        "derived",
+        "inferred",
+        "hypothesis",
+        "contested",
+        "unverified",
+        "outdated",
+        "unverifiable"
+      ]
+    },
+    "quality_assessment": {
+      "type": "object",
+      "properties": {
+        "relevance": {
+          "enum": [
+            "high",
+            "medium",
+            "low",
+            "unknown"
+          ]
+        },
+        "directness": {
+          "enum": [
+            "direct",
+            "indirect",
+            "unknown"
+          ]
+        },
+        "independence": {
+          "enum": [
+            "independent",
+            "dependent",
+            "unknown"
+          ]
+        },
+        "currency": {
+          "enum": [
+            "current",
+            "dated",
+            "outdated",
+            "unknown"
+          ]
+        },
+        "coverage": {
+          "enum": [
+            "adequate",
+            "partial",
+            "truncated",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "counterevidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "redaction_applied": {
+      "type": "boolean",
+      "default": false
+    },
+    "record_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "record_status": {
+      "enum": [
+        "ACTIVE",
+        "SUPERSEDED",
+        "WITHDRAWN",
+        "RESTRICTED"
+      ]
+    },
+    "supersedes_evidence_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "custody_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id",
+          "action",
+          "occurred_at"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string"
+          },
+          "action": {
+            "enum": [
+              "CREATED",
+              "ACCESSED",
+              "VERIFIED",
+              "REDACTED",
+              "SUPERSEDED",
+              "WITHDRAWN",
+              "EXPORTED"
+            ]
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "actor_role": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "data_handling": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sensitivity": {
+          "enum": [
+            "PUBLIC",
+            "INTERNAL",
+            "CONFIDENTIAL",
+            "SENSITIVE",
+            "UNKNOWN"
+          ]
+        },
+        "redaction_applied": {
+          "type": "boolean"
+        },
+        "raw_content_stored": {
+          "type": "boolean"
+        },
+        "retention_class": {
+          "enum": [
+            "EPHEMERAL",
+            "TASK_SCOPED",
+            "PROJECT_CONTROLLED",
+            "REGULATED",
+            "UNKNOWN"
+          ]
+        },
+        "access_control_note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/failure-record.schema.json",
+  "title": "SKILL ANALYZER FIRE Failure Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "incident_id",
+    "occurrence_id",
+    "created_at",
+    "category",
+    "severity",
+    "status",
+    "reproduction_status",
+    "rca_status",
+    "expected_behavior",
+    "observed_behavior",
+    "evidence_refs",
+    "data_sanitized",
+    "release_disposition"
+  ],
+  "properties": {
+    "incident_id": {
+      "type": "string",
+      "pattern": "^FAI-[A-Z0-9-]+$"
+    },
+    "occurrence_id": {
+      "type": "string",
+      "pattern": "^OCC-[A-Z0-9-]+$"
+    },
+    "parent_incident_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_observed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "plugin_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "plugin_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "release_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "environment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "case_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "category": {
+      "enum": [
+        "ROUTE",
+        "ENGINE",
+        "AUTH",
+        "EVIDENCE",
+        "LOGIC",
+        "OUTPUT",
+        "HARNESS",
+        "ORACLE",
+        "INTEGRATION",
+        "PACKAGE",
+        "PERSISTENCE",
+        "GOVERNANCE",
+        "ENVIRONMENT",
+        "READINESS",
+        "CHANGE_IMPACT",
+        "EXPERIMENT",
+        "IMPLEMENTATION"
+      ]
+    },
+    "severity": {
+      "enum": [
+        "P0",
+        "P1",
+        "P2",
+        "P3"
+      ]
+    },
+    "status": {
+      "enum": [
+        "DETECTED",
+        "TRIAGED",
+        "REPRODUCTION_PENDING",
+        "REPRODUCED",
+        "NOT_REPRODUCIBLE",
+        "BLOCKED",
+        "INSUFFICIENT_DATA",
+        "RCA_HYPOTHESIS",
+        "RCA_PARTIAL",
+        "RCA_CONFIRMED",
+        "RCA_INCONCLUSIVE",
+        "CONTAINED",
+        "FIX_DESIGNED",
+        "IMPLEMENTED",
+        "RETESTING",
+        "VERIFIED",
+        "CLOSED",
+        "ACCEPTED_LIMITATION",
+        "REOPENED"
+      ]
+    },
+    "expected_behavior": {
+      "type": "string"
+    },
+    "observed_behavior": {
+      "type": "string"
+    },
+    "sanitized_input_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reproduction_status": {
+      "enum": [
+        "PENDING",
+        "REPRODUCED",
+        "NOT_REPRODUCIBLE",
+        "INTERMITTENT",
+        "BLOCKED",
+        "INSUFFICIENT_DATA",
+        "INVALID_EXPERIMENT"
+      ]
+    },
+    "rca_status": {
+      "enum": [
+        "NOT_STARTED",
+        "HYPOTHESIS",
+        "PARTIALLY_CONFIRMED",
+        "CONFIRMED",
+        "INCONCLUSIVE"
+      ]
+    },
+    "root_cause_hypotheses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "hypothesis",
+          "status"
+        ],
+        "properties": {
+          "hypothesis": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "HYPOTHESIS",
+              "PARTIALLY_CONFIRMED",
+              "CONFIRMED",
+              "REJECTED",
+              "INCONCLUSIVE"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "disconfirming_tests": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "contributing_factors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "detection_gap": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "oracle_issue": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "containment_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "corrective_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preventive_controls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "retest_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "residual_unknown_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owner_role": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "release_disposition": {
+      "enum": [
+        "PASS",
+        "PASS_WITH_CAVEATS",
+        "HOLD",
+        "FAIL"
+      ]
+    },
+    "closure_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recurrence_watch": {
+      "type": "boolean"
+    },
+    "data_sanitized": {
+      "type": "boolean"
+    },
+    "retention_note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "CLOSED"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "closure_evidence"
+        ],
+        "properties": {
+          "closure_evidence": {
+            "minItems": 1
+          },
+          "rca_status": {
+            "enum": [
+              "CONFIRMED",
+              "INCONCLUSIVE"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "ACCEPTED_LIMITATION"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "closure_evidence"
+        ],
+        "properties": {
+          "closure_evidence": {
+            "minItems": 1
+          },
+          "owner_role": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "severity": {
+            "const": "P0"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "release_disposition": {
+            "enum": [
+              "HOLD",
+              "FAIL"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

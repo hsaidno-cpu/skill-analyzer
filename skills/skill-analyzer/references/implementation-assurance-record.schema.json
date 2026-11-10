@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/implementation-assurance-record.schema.json",
+  "title": "SKILL ANALYZER Implementation Assurance Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "requirement_id",
+    "recommendation_id",
+    "decision",
+    "state",
+    "acceptance_criteria",
+    "dependencies",
+    "test_refs",
+    "evidence_refs",
+    "gate2_status"
+  ],
+  "properties": {
+    "requirement_id": {
+      "type": "string",
+      "pattern": "^REQ-[A-Z0-9-]+$"
+    },
+    "recommendation_id": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "ACCEPTED",
+        "DEFERRED",
+        "REJECTED",
+        "NEEDS_DECISION"
+      ]
+    },
+    "state": {
+      "enum": [
+        "PROPOSED",
+        "ACCEPTED",
+        "REQUIREMENT_DEFINED",
+        "READY_FOR_IMPLEMENTATION",
+        "IMPLEMENTING",
+        "IMPLEMENTED",
+        "VERIFICATION_PENDING",
+        "VERIFIED",
+        "RELEASE_APPROVED",
+        "RELEASED",
+        "READ_BACK_CONFIRMED",
+        "CLOSED",
+        "DEFERRED",
+        "REJECTED",
+        "BLOCKED",
+        "FAILED",
+        "ROLLED_BACK",
+        "ACCEPTED_LIMITATION"
+      ]
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owner_role": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authority": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "readiness_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "change_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "test_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "gate2_status": {
+      "enum": [
+        "PASS",
+        "PASS_WITH_CAVEATS",
+        "HOLD",
+        "FAIL",
+        "NOT_RUN"
+      ]
+    },
+    "release_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "read_back_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "decision_rationale": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "CLOSED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "const": "ACCEPTED"
+          },
+          "test_refs": {
+            "minItems": 1
+          },
+          "evidence_refs": {
+            "minItems": 1
+          },
+          "gate2_status": {
+            "enum": [
+              "PASS",
+              "PASS_WITH_CAVEATS"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

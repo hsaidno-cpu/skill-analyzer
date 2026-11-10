@@ -1,0 +1,24 @@
+name: Validate SKILL ANALYZER package
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portability-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Validate manifests, skills, references, and schemas
+        run: python scripts/validate_portability.py
+      - name: Check exporter syntax
+        run: python -m py_compile scripts/export_platforms.py scripts/validate_portability.py

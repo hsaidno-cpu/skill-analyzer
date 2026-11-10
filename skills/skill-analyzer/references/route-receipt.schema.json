@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/route-receipt.schema.json",
+  "title": "SKILL ANALYZER Route Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "route_id",
+    "contract_version",
+    "case_id",
+    "intent",
+    "primary_specialist",
+    "supporting_specialists",
+    "engine_activations",
+    "non_activations",
+    "gate_requirement",
+    "observability",
+    "route_status",
+    "evidence_refs"
+  ],
+  "properties": {
+    "route_id": {
+      "type": "string",
+      "pattern": "^ROUTE-[A-Z0-9-]+$"
+    },
+    "contract_version": {
+      "type": "string"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "intent": {
+      "type": "string"
+    },
+    "action_object": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "primary_specialist": {
+      "type": "string"
+    },
+    "supporting_specialists": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "engine_activations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "engine",
+          "reason"
+        ],
+        "properties": {
+          "engine": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "artifact_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "non_activations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "module",
+          "reason"
+        ],
+        "properties": {
+          "module": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "gate_requirement": {
+      "type": "object",
+      "required": [
+        "gate_1",
+        "gate_2"
+      ],
+      "properties": {
+        "gate_1": {
+          "type": "boolean"
+        },
+        "gate_2": {
+          "type": "boolean"
+        },
+        "exemption_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "expected_output": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observed_output": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observability": {
+      "enum": [
+        "INTERNAL_TRACE",
+        "BEHAVIOR_ONLY",
+        "CONTRACT_ONLY",
+        "NOT_AVAILABLE"
+      ]
+    },
+    "route_status": {
+      "enum": [
+        "EXPECTED",
+        "MISMATCH",
+        "NOT_RUN",
+        "BLOCKED",
+        "INCOMPLETE"
+      ]
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reasoning_summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "route_status": {
+            "const": "EXPECTED"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "observed_output",
+          "evidence_refs"
+        ],
+        "properties": {
+          "observed_output": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

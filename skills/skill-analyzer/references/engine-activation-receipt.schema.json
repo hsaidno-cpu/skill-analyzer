@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/engine-activation-receipt.schema.json",
+  "title": "SKILL ANALYZER Engine Activation Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "activation_id",
+    "case_id",
+    "engine",
+    "status",
+    "positive_triggers",
+    "negative_triggers",
+    "reason",
+    "required_artifacts",
+    "produced_artifacts",
+    "evidence_refs"
+  ],
+  "properties": {
+    "activation_id": {
+      "type": "string",
+      "pattern": "^ACT-[A-Z0-9-]+$"
+    },
+    "case_id": {
+      "type": "string"
+    },
+    "engine": {
+      "enum": [
+        "Decision Intelligence",
+        "Human Impact, Ethics & Governance",
+        "Benchmark & Regression",
+        "Knowledge & Method Intelligence",
+        "FIRE",
+        "Information Authenticator"
+      ]
+    },
+    "status": {
+      "enum": [
+        "ACTIVATED",
+        "COMPLETED",
+        "NOT_ACTIVATED",
+        "NOT_CHECKED",
+        "BLOCKED"
+      ]
+    },
+    "positive_triggers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "negative_triggers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 5
+    },
+    "required_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "produced_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "COMPLETED"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "produced_artifacts",
+          "evidence_refs"
+        ],
+        "properties": {
+          "produced_artifacts": {
+            "minItems": 1
+          },
+          "evidence_refs": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

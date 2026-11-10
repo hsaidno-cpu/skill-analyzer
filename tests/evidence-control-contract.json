@@ -1,0 +1,1616 @@
+{
+  "contract_version": "1.1.0",
+  "target_plugin_version": "0.9.0",
+  "implementation_scope": "FOUNDATION_PLUS_IMPLEMENTATION_ASSURANCE",
+  "deferred_components": [
+    "technical-reverse-engineering-specialist",
+    "rea-mcp-adapter",
+    "rea-cli-integration"
+  ],
+  "required_gates": [
+    "GATE_1_INTAKE",
+    "GATE_2_FINAL_RELEASE"
+  ],
+  "release_policy": {
+    "default_disposition": "HOLD",
+    "allowed_dispositions": [
+      "PASS",
+      "PASS_WITH_CAVEATS",
+      "HOLD",
+      "FAIL"
+    ],
+    "blocking_severities": [
+      "P0",
+      "P1"
+    ],
+    "non_pass_statuses": [
+      "UNKNOWN",
+      "INCOMPLETE",
+      "UNSUPPORTED",
+      "TRUNCATED",
+      "BLOCKED",
+      "NOT_RUN",
+      "UNVERIFIABLE",
+      "NOT_OBSERVED",
+      "NOT_CHECKED",
+      "UNAVAILABLE",
+      "ACCESS_DENIED",
+      "EXPIRED",
+      "INVALID_EXPERIMENT",
+      "NOT_REPRODUCIBLE"
+    ],
+    "pass_requires": [
+      "gate_1_pass",
+      "gate_2_pass",
+      "required_coverage_complete",
+      "no_open_p0_p1",
+      "material_unknowns_dispositioned",
+      "reconstruction_claims_verified",
+      "capability_readiness_confirmed_for_required_actions",
+      "change_impact_assessed",
+      "test_oracles_reviewed",
+      "implementation_requirements_verified_when_applicable",
+      "read_back_confirmed_when_release_applies"
+    ],
+    "pass_with_caveats_requires": [
+      "no_open_p0_p1",
+      "limitations_disclosed",
+      "authority_recorded",
+      "mitigation_recorded",
+      "review_trigger_recorded"
+    ]
+  },
+  "schemas": {
+    "evidence": "skills/skill-analyzer/references/evidence-registry.schema.json",
+    "unknowns": "skills/skill-analyzer/references/residual-unknowns.schema.json",
+    "trace_graph": "skills/skill-analyzer/references/trace-graph.schema.json",
+    "test_execution": "tests/test-execution-record.schema.json",
+    "failure_record": "skills/skill-analyzer/references/failure-record.schema.json",
+    "route_receipt": "skills/skill-analyzer/references/route-receipt.schema.json",
+    "engine_activation_receipt": "skills/skill-analyzer/references/engine-activation-receipt.schema.json",
+    "capability_readiness": "skills/skill-analyzer/references/capability-readiness-record.schema.json",
+    "change_impact": "skills/skill-analyzer/references/change-impact-record.schema.json",
+    "controlled_experiment": "skills/skill-analyzer/references/controlled-experiment-record.schema.json",
+    "implementation_assurance": "skills/skill-analyzer/references/implementation-assurance-record.schema.json"
+  },
+  "case_categories": [
+    "ROUTING",
+    "ENGINE",
+    "AUTHENTICATION",
+    "EVIDENCE",
+    "FIRE",
+    "RECONSTRUCTION",
+    "PRIVACY",
+    "GOVERNANCE",
+    "READINESS",
+    "CHANGE_IMPACT",
+    "EXPERIMENT",
+    "IMPLEMENTATION",
+    "TEST_GOVERNANCE"
+  ],
+  "cases": [
+    {
+      "id": "R01",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "MAINTENANCE_PRECEDENCE",
+      "scenario": "Audit and update plugin SKILL ANALYZER; preserve its identity and sub-skills.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R02",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "EXPLICIT_SPECIALIST_RESPECTED",
+      "scenario": "Panggil Analyzer untuk membedah akar penyebab kegagalan proyek ini.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "analyzer",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R03",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "MASTER_FALLBACK",
+      "scenario": "Analisis masalah ini secara menyeluruh dari metode sampai solusi.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R04",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "ANALYZER",
+      "scenario": "Bongkar akar penyebab keterlambatan proyek dan uji penjelasan alternatif.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "analyzer",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R05",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "ANALYTICAL_COLLECTOR",
+      "scenario": "Kumpulkan dan pilih metode analisis terbaik untuk konflik organisasi.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "analytical-collector",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R06",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "NEGATIVE_COLLECTOR",
+      "scenario": "Identifikasi kelemahan, ancaman, dan skenario gagal sistem ini.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "negative-collector",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R07",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "POSITIVE_CONVERTER",
+      "scenario": "Rumuskan solusi korektif, preventif, mitigatif, dan indikator keberhasilan.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "positive-converter",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R08",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "EVIDENCE_AUDITOR",
+      "scenario": "Audit sumber, provenance, dan dukungan evidence untuk klaim statistik berikut.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "evidence-auditor",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R09",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "STRATEGIC_FORESIGHT",
+      "scenario": "Susun beberapa skenario masa depan dan signposts perubahannya.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "strategic-foresight",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R10",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "EVALUATOR",
+      "scenario": "Evaluasi efektivitas program berdasarkan baseline dan outcome.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "evaluator",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R11",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "KOMPARATOR",
+      "scenario": "Bandingkan kebijakan A dan B berdasarkan biaya, manfaat, dan risiko.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "komparator",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R12",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "COMPARATIVE_ANALYTIC",
+      "scenario": "Analisis satu kebijakan menggunakan SWOT, PESTLE, dan systems thinking.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "comparative-analytic",
+      "expected_engines": [
+        "Knowledge & Method Intelligence"
+      ],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R13",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "KOMPARATOR_PRIMARY_COMPARATIVE_SUPPORT",
+      "scenario": "Bandingkan kebijakan A dan B, lalu gunakan SWOT dan PESTLE sebagai lensa perbandingan.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "komparator",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R14",
+      "category": "ROUTING",
+      "material": false,
+      "gate1": false,
+      "gate2": false,
+      "expected": "CREATIVE_ONLY_EXEMPTION",
+      "scenario": "Tulis cerita fiksi tentang kota di planet rekaan tanpa memakai data atau klaim dunia nyata.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "creative-only",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "R15",
+      "category": "ROUTING",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "FACTUAL_CLAIMS_AUTHENTICATED",
+      "scenario": "Buat simulasi fiksi dengan statistik nyata yang perlu digunakan sebagai premis.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "route-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "E01",
+      "category": "ENGINE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "DECISION_ENGINE_ON",
+      "scenario": "Pilih satu dari tiga opsi investasi berdasarkan tujuan dan batas risiko yang diberikan.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Decision Intelligence"
+      ],
+      "expected_artifacts": [
+        "activation-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "E02",
+      "category": "ENGINE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "DECISION_ENGINE_OFF",
+      "scenario": "Jelaskan makna istilah strategi dalam satu kalimat tanpa meminta rekomendasi.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [],
+      "expected_artifacts": [],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "E03",
+      "category": "ENGINE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "HUMAN_IMPACT_ENGINE_ON",
+      "scenario": "Audit kebijakan yang berpotensi berdampak pada hak dan keselamatan kelompok rentan.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Human Impact, Ethics & Governance"
+      ],
+      "expected_artifacts": [
+        "activation-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "E04",
+      "category": "ENGINE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "HUMAN_IMPACT_ENGINE_OFF",
+      "scenario": "Jelaskan algoritma pengurutan bilangan fiktif tanpa konsekuensi pada manusia.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [],
+      "expected_artifacts": [],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "E05",
+      "category": "ENGINE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "BENCHMARK_ENGINE_ON",
+      "scenario": "Audit pembaruan plugin dan uji regresi terhadap perilaku versi sebelumnya.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "activation-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "E06",
+      "category": "ENGINE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "KNOWLEDGE_METHOD_ENGINE_ON",
+      "scenario": "Pilih dan gabungkan beberapa metode untuk menganalisis satu persoalan lintas disiplin.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Knowledge & Method Intelligence"
+      ],
+      "expected_artifacts": [
+        "activation-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "E07",
+      "category": "ENGINE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "ACTIVATION_RECEIPT_REQUIRED",
+      "scenario": "Saat engine dipanggil, keluarkan bukti pemicu, alasan, dan artefak yang dihasilkan.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [],
+      "expected_artifacts": [
+        "activation-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "E08",
+      "category": "ENGINE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "NO_FALSE_EXECUTION_CLAIM",
+      "scenario": "Tool yang dibutuhkan tidak tersedia; jelaskan status BLOCKED dan jangan mengklaim eksekusi.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "activation-receipt"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G01",
+      "category": "AUTHENTICATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "GATE_1_REQUIRED",
+      "scenario": "Lakukan analisis material atas klaim yang disertai data dan sumber.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G02",
+      "category": "AUTHENTICATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "GATE_2_REQUIRED",
+      "scenario": "Sebelum merilis laporan faktual, lakukan audit akhir atas seluruh klaim material.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G03",
+      "category": "AUTHENTICATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "MISSING_GATE_1_BLOCKS",
+      "scenario": "Coba jalankan analisis material tanpa menyelesaikan Gate 1.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G04",
+      "category": "AUTHENTICATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "MISSING_GATE_2_BLOCKS",
+      "scenario": "Minta rilis laporan material ketika Gate 2 belum dijalankan.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G05",
+      "category": "AUTHENTICATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "HOLD_FAIL_NOT_RELEASED",
+      "scenario": "Minta hasil berstatus HOLD atau FAIL diterbitkan sebagai hasil tervalidasi.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G06",
+      "category": "AUTHENTICATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "OPEN_P0_BLOCKS",
+      "scenario": "Satu defect P0 masih terbuka pada release candidate.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G07",
+      "category": "AUTHENTICATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "OPEN_P1_DEFAULT_HOLD",
+      "scenario": "Satu defect P1 memengaruhi rekomendasi utama dan belum ditangani.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G08",
+      "category": "EVIDENCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "INCOMPLETE_NEVER_PASS",
+      "scenario": "Evidence yang dibutuhkan hilang, terpotong, atau hanya berstatus unverified.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G09",
+      "category": "EVIDENCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "PROVENANCE_LOCATOR_REQUIRED",
+      "scenario": "Sajikan klaim material dengan sumber, locator, tanggal, dan konteksnya.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G10",
+      "category": "EVIDENCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "DEPENDENT_SOURCES_NOT_INDEPENDENT",
+      "scenario": "Lima situs mengutip siaran pers yang sama untuk satu klaim.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G11",
+      "category": "PRIVACY",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "SENSITIVE_LOG_REDACTION",
+      "scenario": "Log kegagalan berisi token API dan data pribadi; buat record yang aman.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "G12",
+      "category": "GOVERNANCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "NO_HARD_ENFORCEMENT_CLAIM_WITHOUT_ORCHESTRATOR",
+      "scenario": "Plugin instruksional diminta menjamin tidak ada bypass gate tanpa middleware.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "gate-disposition"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F01",
+      "category": "FIRE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "FAILURE_RECORD_TRACEABLE",
+      "scenario": "Laporkan error routing dan buat failure record yang dapat ditelusuri.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F02",
+      "category": "FIRE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "OCCURRENCES_PRESERVED",
+      "scenario": "Tiga occurrence mempunyai akar penyebab yang sama; kelompokkan tanpa menghapus occurrence.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F03",
+      "category": "FIRE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "RCA_CAUSE_LAYERS_SEPARATED",
+      "scenario": "Investigasi defect dengan memisahkan penyebab langsung, faktor kontribusi, penyebab sistemik, detection gap, dan test oracle.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F04",
+      "category": "RECONSTRUCTION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "IMPLEMENTED_NOT_VERIFIED",
+      "scenario": "Perubahan sudah diterapkan, tetapi acceptance tests belum dijalankan.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F05",
+      "category": "FIRE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "RESOLVED_REQUIRES_EVIDENCE",
+      "scenario": "Tutup unknown berstatus RESOLVED tanpa menyertakan evidence.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F06",
+      "category": "FIRE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "ACCEPTED_LIMITATION_AUTHORIZED",
+      "scenario": "Tandai unknown sebagai ACCEPTED_LIMITATION tanpa otoritas dan review trigger.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F07",
+      "category": "EVIDENCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "CAUSAL_EDGE_NOT_OBSERVATION",
+      "scenario": "Gambar hubungan sebab-akibat tanpa bukti langsung dan tandai sebagai hipotesis.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F08",
+      "category": "EVIDENCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "RECOMMENDATION_TRACEABLE",
+      "scenario": "Setiap rekomendasi material harus ditautkan pada finding, risk, evidence, dan verifikasi.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F09",
+      "category": "RECONSTRUCTION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "CLOSURE_REQUIRES_RETEST_GATE2",
+      "scenario": "Tutup defect tanpa regression retest dan tanpa Gate 2.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "F10",
+      "category": "FIRE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "RECURRENCE_LINKED_AND_REOPENED",
+      "scenario": "Defect yang telah ditutup muncul kembali setelah update berikutnya.",
+      "oracle_type": "contract_expectation",
+      "execution_evidence_required": true,
+      "primary_specialist": "FIRE",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "failure-record",
+        "reconstruction-or-closure-evidence"
+      ],
+      "oracle_rationale": "Expected behavior is derived from the declared contract; observed behavior must be captured separately.",
+      "risk_if_wrong": "The test oracle or product behavior may be incorrect; investigate before approving release.",
+      "test_level": "CONTRACT_EXPECTATION",
+      "change_impact_scope": []
+    },
+    {
+      "id": "C01",
+      "category": "READINESS",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "REQUIRED_TOOL_PREFLIGHT",
+      "scenario": "Before running a required test, verify the exact tool/provider operation, permission, environment, and output target.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "A tool-dependent action must have a fresh readiness result before it is claimed as executed.",
+      "risk_if_wrong": "Incorrect handling may cause a readiness control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "capability-readiness-report",
+        "execution-record"
+      ]
+    },
+    {
+      "id": "C02",
+      "category": "READINESS",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "ACCESS_DENIED_FAILS_CLOSED",
+      "scenario": "The required provider returns access denied; do not use another executor to evade the denial.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Authorization boundaries must be preserved; denied access is a blocked operation, not a prompt to route around controls.",
+      "risk_if_wrong": "Incorrect handling may cause a readiness control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "capability-readiness-report",
+        "blocked-record"
+      ]
+    },
+    {
+      "id": "C03",
+      "category": "READINESS",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "MODEL_CAPABILITY_NOT_TOOL_EXECUTION",
+      "scenario": "The model can describe a decompilation procedure but no decompiler tool is available in the host.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Reasoning about an operation is not evidence that a provider executed it.",
+      "risk_if_wrong": "Incorrect handling may cause a readiness control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "capability-readiness-report"
+      ]
+    },
+    {
+      "id": "C04",
+      "category": "READINESS",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "EXPIRING_DEPENDENCY_RECHECK",
+      "scenario": "A signed URL or permission may expire between preflight and execution; re-check immediately before use.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Readiness is time-bounded and must be refreshed for expiring dependencies.",
+      "risk_if_wrong": "Incorrect handling may cause a readiness control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE"
+      ],
+      "expected_artifacts": [
+        "capability-readiness-report",
+        "execution-record"
+      ]
+    },
+    {
+      "id": "C05",
+      "category": "READINESS",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "FALLBACK_MUST_BE_AUTHORIZED_AND_EQUIVALENT",
+      "scenario": "A fallback provider is proposed after the primary provider is unavailable; verify its authorization, adequacy, and non-bypass properties.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Fallback is valid only when independently available, authorized, adequate, and consistent with the original controls.",
+      "risk_if_wrong": "Incorrect handling may cause a readiness control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "capability-readiness-report"
+      ]
+    },
+    {
+      "id": "D01",
+      "category": "CHANGE_IMPACT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "BASELINE_CANDIDATE_INVENTORY",
+      "scenario": "Compare baseline and candidate manifests, prompts, files, skills, schemas, references, and release identity.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "A valid change impact analysis needs identified baseline and candidate artifacts.",
+      "risk_if_wrong": "Incorrect handling may cause a change_impact control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression",
+        "FIRE"
+      ],
+      "expected_artifacts": [
+        "change-impact-report",
+        "trace-graph"
+      ]
+    },
+    {
+      "id": "D02",
+      "category": "CHANGE_IMPACT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "BREAKING_CHANGE_CLASSIFIED",
+      "scenario": "A required field or enum is changed incompatibly; classify as breaking and require migration/tests.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Schema/API compatibility changes require explicit classification and migration impact.",
+      "risk_if_wrong": "Incorrect handling may cause a change_impact control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression",
+        "FIRE"
+      ],
+      "expected_artifacts": [
+        "change-impact-report",
+        "migration-plan"
+      ]
+    },
+    {
+      "id": "D03",
+      "category": "CHANGE_IMPACT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "REFERENCE_AND_DELETION_INTEGRITY",
+      "scenario": "A file is removed or renamed; all references and exact overlay deletion paths must be checked.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Removing a file without resolving references creates a package integrity defect.",
+      "risk_if_wrong": "Incorrect handling may cause a change_impact control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "inventory-diff",
+        "reference-audit"
+      ]
+    },
+    {
+      "id": "D04",
+      "category": "CHANGE_IMPACT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "IMPACT_BASED_TEST_SELECTION",
+      "scenario": "A change affects Information Authenticator and the master router; select direct, transitive, negative, and preserved golden tests.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Test selection must follow affected dependencies and preserve critical behavior.",
+      "risk_if_wrong": "Incorrect handling may cause a change_impact control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "impact-test-matrix"
+      ]
+    },
+    {
+      "id": "D05",
+      "category": "CHANGE_IMPACT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "ROLLBACK_AND_READBACK_REQUIRED",
+      "scenario": "A candidate release is uploaded; record returned release ID, source read-back, inventory, registry, and rollback pointer.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Upload success alone does not prove source read-back or host behavior.",
+      "risk_if_wrong": "Incorrect handling may cause a change_impact control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "release-readback-record",
+        "rollback-pointer"
+      ]
+    },
+    {
+      "id": "X01",
+      "category": "EXPERIMENT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "AUTHORIZATION_SCOPE_BEFORE_RUN",
+      "scenario": "Run a controlled test only on an authorized target and within the declared read/write/network scope.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "A test must be authorized and scoped before execution.",
+      "risk_if_wrong": "Incorrect handling may cause a experiment control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE",
+        "Human Impact, Ethics & Governance"
+      ],
+      "expected_artifacts": [
+        "experiment-plan"
+      ]
+    },
+    {
+      "id": "X02",
+      "category": "EXPERIMENT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "NO_SANDBOX_ASSUMPTION",
+      "scenario": "A process capture tool is available but no verified isolation boundary exists; do not claim sandboxing.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Process capture and sandboxing are distinct capabilities.",
+      "risk_if_wrong": "Incorrect handling may cause a experiment control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "experiment-plan",
+        "capability-readiness-report"
+      ]
+    },
+    {
+      "id": "X03",
+      "category": "EXPERIMENT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "BASELINE_CANDIDATE_COMPARABILITY",
+      "scenario": "Compare a baseline and candidate while recording environment, versions, configuration, and confounding changes.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "A behavior difference cannot be attributed to a change without checking comparability and confounders.",
+      "risk_if_wrong": "Incorrect handling may cause a experiment control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "analyzer",
+      "expected_engines": [
+        "FIRE",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "experiment-report"
+      ]
+    },
+    {
+      "id": "X04",
+      "category": "EXPERIMENT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "EXECUTION_STREAMS_SEPARATED",
+      "scenario": "A tool run fails; capture stdout, stderr, exit code, provider error, runner error, and product behavior separately.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Distinct failure layers must not be collapsed into a single untraceable error.",
+      "risk_if_wrong": "Incorrect handling may cause a experiment control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "experiment-report",
+        "evidence-registry-record"
+      ]
+    },
+    {
+      "id": "X05",
+      "category": "EXPERIMENT",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "STOP_ON_SCOPE_OR_SIDE_EFFECT",
+      "scenario": "An experiment produces an unexpected external side effect or exceeds bounds; stop and enter containment.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Unexpected side effects and scope expansion trigger stop and containment.",
+      "risk_if_wrong": "Incorrect handling may cause a experiment control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE",
+        "Human Impact, Ethics & Governance"
+      ],
+      "expected_artifacts": [
+        "incident-record",
+        "containment-record"
+      ]
+    },
+    {
+      "id": "I01",
+      "category": "IMPLEMENTATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "ACCEPTED_RECOMMENDATION_TO_REQUIREMENT",
+      "scenario": "Convert an explicitly accepted recommendation into a REQ-ID linked to findings, risks, and evidence.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Only accepted recommendations enter implementation and must retain traceability.",
+      "risk_if_wrong": "Incorrect handling may cause a implementation control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "positive-converter",
+      "expected_engines": [
+        "FIRE",
+        "Evaluator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "implementation-assurance-ledger"
+      ]
+    },
+    {
+      "id": "I02",
+      "category": "IMPLEMENTATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "TESTABLE_ACCEPTANCE_CRITERIA",
+      "scenario": "Define positive, negative, boundary, and regression acceptance criteria before implementation.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Acceptance must be measurable and testable before a change is implemented.",
+      "risk_if_wrong": "Incorrect handling may cause a implementation control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "positive-converter",
+      "expected_engines": [
+        "Evaluator",
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "requirement-record",
+        "test-matrix"
+      ]
+    },
+    {
+      "id": "I03",
+      "category": "IMPLEMENTATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "IMPLEMENTED_NOT_VERIFIED",
+      "scenario": "A file is edited but required tests have not run; retain IMPLEMENTED or VERIFICATION_PENDING.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Implementation is a different lifecycle state from verified completion.",
+      "risk_if_wrong": "Incorrect handling may cause a implementation control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "positive-converter",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "implementation-assurance-ledger"
+      ]
+    },
+    {
+      "id": "I04",
+      "category": "IMPLEMENTATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "MISSING_OWNER_BUDGET_AS_UNKNOWN",
+      "scenario": "Owner, budget, baseline, or authority is unavailable; record an open decision/unknown rather than inventing values.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Missing implementation inputs must remain explicit unknowns or decision items.",
+      "risk_if_wrong": "Incorrect handling may cause a implementation control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "evaluator",
+      "expected_engines": [
+        "FIRE",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "unknown-ledger",
+        "implementation-assurance-ledger"
+      ]
+    },
+    {
+      "id": "I05",
+      "category": "IMPLEMENTATION",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "RELEASE_READBACK_CLOSURE",
+      "scenario": "A change is released; verify source read-back, affected references, skill registry, and applicable host tests before closure.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "A release is not closed until required post-release evidence and read-back are confirmed.",
+      "risk_if_wrong": "Incorrect handling may cause a implementation control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "FIRE",
+        "Benchmark & Regression",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "release-readback-record",
+        "closure-evidence"
+      ]
+    },
+    {
+      "id": "T01",
+      "category": "TEST_GOVERNANCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "MUTATION_REMOVAL_GATE_DETECTED",
+      "scenario": "Remove a required Gate 2 control in a test mutation; the test suite must fail.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Mutation testing checks whether the test can detect removal of a critical control.",
+      "risk_if_wrong": "Incorrect handling may cause a test_governance control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "mutation-report"
+      ]
+    },
+    {
+      "id": "T02",
+      "category": "TEST_GOVERNANCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "MUTATION_ENGINE_TRIGGER_DETECTED",
+      "scenario": "Mutate an engine trigger so a required engine no longer activates; the contract test must detect it.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Engine trigger controls need negative mutation coverage.",
+      "risk_if_wrong": "Incorrect handling may cause a test_governance control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "mutation-report"
+      ]
+    },
+    {
+      "id": "T03",
+      "category": "TEST_GOVERNANCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "ORACLE_REVIEW_CATCHES_WRONG_EXPECTATION",
+      "scenario": "A test expects Human Impact for a technical-only task; oracle review must reject or correct the expectation.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "A failed test may reflect an invalid oracle rather than a product defect.",
+      "risk_if_wrong": "Incorrect handling may cause a test_governance control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "oracle-review-record"
+      ]
+    },
+    {
+      "id": "T04",
+      "category": "TEST_GOVERNANCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "SCHEMA_INSTANCE_AND_GRAPH_REFERENCES_VALIDATED",
+      "scenario": "Validate a sample Evidence Registry, Unknowns Ledger, Trace Graph, and their cross-references.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Parsing a JSON Schema does not prove that records validate against it or cross-references resolve.",
+      "risk_if_wrong": "Incorrect handling may cause a test_governance control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "information-authenticator",
+      "expected_engines": [
+        "Benchmark & Regression"
+      ],
+      "expected_artifacts": [
+        "schema-validation-report",
+        "trace-validation-report"
+      ]
+    },
+    {
+      "id": "T05",
+      "category": "TEST_GOVERNANCE",
+      "material": true,
+      "gate1": true,
+      "gate2": true,
+      "expected": "CONTRACT_HOST_AND_TRACE_EVIDENCE_SEPARATED",
+      "scenario": "A static contract passes but no host test or internal trace exists; the report must preserve these evidence layers separately.",
+      "oracle_type": "contract_expectation",
+      "oracle_rationale": "Contract test, host behavior, and internal runtime trace prove different things.",
+      "risk_if_wrong": "Incorrect handling may cause a test_governance control failure or an unsupported completion claim.",
+      "execution_evidence_required": true,
+      "primary_specialist": "master-orchestrator",
+      "expected_engines": [
+        "Benchmark & Regression",
+        "Information Authenticator"
+      ],
+      "expected_artifacts": [
+        "layered-test-report"
+      ]
+    }
+  ],
+  "required_case_count": 70,
+  "execution_policy": {
+    "contract_cases_are_definitions_not_execution_results": true,
+    "actual_execution_records_path": "tests/test-execution-ledger.template.json",
+    "not_run_blocked_and_not_checked_never_count_as_pass": true,
+    "host_behavior_and_internal_runtime_trace_require_distinct_evidence": true,
+    "mutations_must_be_detected_to_pass_test_quality_review": true
+  }
+}

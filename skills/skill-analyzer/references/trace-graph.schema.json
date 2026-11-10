@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/trace-graph.schema.json",
+  "title": "SKILL ANALYZER Trace Graph",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "graph_id",
+    "nodes",
+    "edges"
+  ],
+  "properties": {
+    "graph_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "node_id",
+          "node_type",
+          "label",
+          "epistemic_status"
+        ],
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "pattern": "^NODE-[A-Z0-9-]+$"
+          },
+          "node_type": {
+            "enum": [
+              "SOURCE",
+              "ARTIFACT",
+              "CLAIM",
+              "EVIDENCE",
+              "METHOD",
+              "OBSERVATION",
+              "FINDING",
+              "CAUSE_HYPOTHESIS",
+              "UNKNOWN",
+              "CONTROL",
+              "RECOMMENDATION",
+              "TEST",
+              "RELEASE"
+            ]
+          },
+          "label": {
+            "type": "string"
+          },
+          "locator": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "epistemic_status": {
+            "enum": [
+              "observed",
+              "documented",
+              "inferred",
+              "hypothesis",
+              "unknown"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "edge_id",
+          "from",
+          "to",
+          "relation",
+          "basis_status"
+        ],
+        "properties": {
+          "edge_id": {
+            "type": "string",
+            "pattern": "^EDGE-[A-Z0-9-]+$"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "relation": {
+            "enum": [
+              "SUPPORTS",
+              "CONTRADICTS",
+              "DERIVED_FROM",
+              "OBSERVES",
+              "DEPENDS_ON",
+              "CAUSAL_HYPOTHESIS",
+              "MITIGATES",
+              "VERIFIES",
+              "SUPERSEDES",
+              "IMPLEMENTS",
+              "CHANGES",
+              "RECONSTRUCTS",
+              "REOPENS"
+            ]
+          },
+          "basis_status": {
+            "enum": [
+              "observed",
+              "documented",
+              "inferred",
+              "hypothesis"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low",
+              "unknown"
+            ]
+          },
+          "observed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "change_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "scope_note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "baseline_release_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "candidate_release_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

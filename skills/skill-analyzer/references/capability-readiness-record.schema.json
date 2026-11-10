@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/capability-readiness-record.schema.json",
+  "title": "SKILL ANALYZER Capability Readiness Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "capability_id",
+    "operation",
+    "provider",
+    "status",
+    "checked_at",
+    "required_scope",
+    "limitations",
+    "execution_claim_allowed"
+  ],
+  "properties": {
+    "capability_id": {
+      "type": "string",
+      "pattern": "^CAP-[A-Z0-9-]+$"
+    },
+    "operation": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "string"
+    },
+    "provider_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "READY",
+        "READY_WITH_LIMITATIONS",
+        "BLOCKED",
+        "UNAVAILABLE",
+        "ACCESS_DENIED",
+        "NOT_CHECKED",
+        "EXPIRED",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "checked_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "required_scope": {
+      "type": "string"
+    },
+    "observed_scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dependency_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approved_fallback": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recheck_before_execution": {
+      "type": "boolean"
+    },
+    "execution_claim_allowed": {
+      "type": "boolean"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "BLOCKED",
+              "UNAVAILABLE",
+              "ACCESS_DENIED",
+              "NOT_CHECKED",
+              "EXPIRED"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "execution_claim_allowed": {
+            "const": false
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "READY"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "execution_claim_allowed": {
+            "const": true
+          },
+          "checked_at": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  ]
+}

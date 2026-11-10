@@ -1,0 +1,28 @@
+{
+  "source_version": "0.7.0",
+  "source_release_id": "pluginrel_6ae5c97e54fc8191ac8732aca9334ab9",
+  "plugin_id": "plugins_6ae2a122f5c881919193c9b0ba51961e",
+  "preserved_skill_paths": [
+    "skills/analytical-collector/SKILL.md",
+    "skills/analyzer/SKILL.md",
+    "skills/negative-collector/SKILL.md",
+    "skills/positive-converter/SKILL.md",
+    "skills/evidence-auditor/SKILL.md",
+    "skills/strategic-foresight/SKILL.md",
+    "skills/evaluator/SKILL.md",
+    "skills/komparator/SKILL.md",
+    "skills/comparative-analytic/SKILL.md",
+    "skills/information-authenticator/SKILL.md"
+  ],
+  "policy": "Only overlay files are packaged; unchanged files listed here must remain intact in the target release. Verify the actual post-update inventory by read-back.",
+  "target_version": "0.9.0",
+  "target_scope": "FOUNDATION_PLUS_IMPLEMENTATION_ASSURANCE",
+  "preservation_checks": [
+    "plugin_id and plugin name unchanged",
+    "USER scope and PRIVATE discoverability unchanged",
+    "all ten specialist paths retained by overlay and post-update inventory",
+    "defaultPrompt value, type, order, and wording preserved",
+    "root and compatibility manifest versions/descriptions/keywords synchronized",
+    "unchanged source files must be verified by post-update inventory/read-back; size equality alone is insufficient"
+  ]
+}

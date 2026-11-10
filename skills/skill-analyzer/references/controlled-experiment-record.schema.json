@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skill-analyzer.local/schemas/v0.9.0/controlled-experiment-record.schema.json",
+  "title": "SKILL ANALYZER Controlled Experiment Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "target",
+    "authorization_status",
+    "hypothesis",
+    "baseline",
+    "candidate",
+    "execution_status",
+    "side_effects",
+    "rollback_plan",
+    "evidence_refs"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^EXP-[A-Z0-9-]+$"
+    },
+    "target": {
+      "type": "string"
+    },
+    "authorization_status": {
+      "enum": [
+        "AUTHORIZED",
+        "DENIED",
+        "UNCLEAR",
+        "NOT_REQUIRED"
+      ]
+    },
+    "scope": {
+      "type": "string"
+    },
+    "hypothesis": {
+      "type": "string"
+    },
+    "baseline": {
+      "type": "object",
+      "required": [
+        "identifier"
+      ],
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "environment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "configuration": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "candidate": {
+      "type": "object",
+      "required": [
+        "identifier"
+      ],
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "environment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "configuration": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "bounds": {
+      "type": "object",
+      "properties": {
+        "timeout_seconds": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "max_processes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "max_output_bytes": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "network_scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filesystem_scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sandbox_verified": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "execution_status": {
+      "enum": [
+        "PLANNED",
+        "EXECUTED",
+        "BLOCKED",
+        "STOPPED",
+        "INVALID_EXPERIMENT"
+      ]
+    },
+    "started_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "exit_code": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "stdout_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stderr_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "side_effects": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rollback_plan": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "result": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "execution_status": {
+            "const": "EXECUTED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "authorization_status": {
+            "enum": [
+              "AUTHORIZED",
+              "NOT_REQUIRED"
+            ]
+          },
+          "started_at": {
+            "type": "string"
+          },
+          "ended_at": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "minItems": 1
+          }
+        },
+        "required": [
+          "started_at",
+          "ended_at",
+          "result",
+          "evidence_refs"
+        ]
+      }
+    }
+  ]
+}
