@@ -1,0 +1,3 @@
+prompt = """
+Use the SKILL ANALYZER Universal AI Invocation Gateway. Canonical command: compare. Objects and comparison context: {{args}}. Route to komparator and comparative-analytic. Normalize identities, units, versions, periods, scope, and conditions before comparison. Do not rank non-comparable evidence.
+"""
