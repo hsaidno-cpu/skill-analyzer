@@ -18,7 +18,16 @@ jobs:
         uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - name: Validate manifests, skills, references, and schemas
+      - name: Validate manifests, skills, Gateway routes, references, and schemas
         run: python scripts/validate_portability.py
-      - name: Check exporter syntax
-        run: python -m py_compile scripts/export_platforms.py scripts/validate_portability.py
+      - name: Run Gateway contract tests
+        run: python -m unittest discover -s tests -v
+      - name: Check Python syntax
+        run: python -m py_compile scripts/export_platforms.py scripts/validate_portability.py scripts/invoke.py tests/test_invocation_gateway.py
+      - name: Smoke-test Gateway CLI
+        run: |
+          python scripts/invoke.py list
+          python scripts/invoke.py platforms
+          python scripts/invoke.py resolve audit --target "CI smoke test" --platform generic --format json
+      - name: Build every platform profile
+        run: python scripts/export_platforms.py --target all --output ./dist
