@@ -207,3 +207,45 @@ To add a platform:
 - [Gemini CLI Agent Skills](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/using-agent-skills.md)
 - [Cursor Agent Skills](https://cursor.com/help/customization/skills)
 - [VS Code Agent Skills](https://code.visualstudio.com/docs/agent-customization/agent-skills)
+
+
+## 10. Hosted Remote MCP + HTTP Gateway
+
+The cloud package implements the Gateway as a hosted service. After deployment, callers do not need to clone this repository, install Agent Skills, or run the local invocation compiler.
+
+One public base URL serves both protocols:
+
+| Interface | URL | Caller |
+|---|---|---|
+| Remote MCP | `https://YOUR_DOMAIN/mcp` | MCP-compatible AI clients |
+| HTTP invoke | `https://YOUR_DOMAIN/v1/invoke` | Apps, scripts, and backend services |
+| Command catalog | `https://YOUR_DOMAIN/v1/commands` | Authenticated clients |
+| Health | `https://YOUR_DOMAIN/healthz` | Infrastructure probes |
+| Readiness | `https://YOUR_DOMAIN/readyz` | Infrastructure probes |
+
+The MCP and HTTP API paths differ because they implement different protocols; the origin, identity configuration, command registry, routing layer, model provider, and audit pipeline are shared.
+
+### Remote MCP client
+
+Configure the MCP server URL as `https://YOUR_DOMAIN/mcp`. Use the OAuth flow advertised by the Protected Resource Metadata endpoint. The external issuer must return an access token whose audience matches the exact MCP resource URL and whose scope includes `analyzer:invoke`.
+
+### HTTP API client
+
+Send a bearer token and a JSON body:
+
+~~~~bash
+curl -X POST https://YOUR_DOMAIN/v1/invoke \\
+  -H "Authorization: Bearer $ACCESS_TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{"command":"audit","target":"Example system","depth":"deep"}'
+~~~~
+
+### Security and logging
+
+The hosted service verifies OIDC JWT signature, issuer, audience/resource, expiry, and scope; applies Redis-backed per-principal rate limiting; resolves commands against the canonical registry; and emits metadata-only structured logs. Prompts, model completions, credentials, authorization headers, and raw JWT claims are not written into audit logs.
+
+The model service currently performs one provider call per request. Specialist routing is logical within that call; it does not create ten independent agents. Web search, filesystem, repository-write, shell, and other tool capabilities are not configured by default.
+
+### Deployment boundary
+
+This repository includes the FastAPI/MCP service, Dockerfile, dependencies, cloud profile, tests, and [CLOUD_DEPLOYMENT.md](CLOUD_DEPLOYMENT.md). It is not itself a live hosted deployment. An operator must provision a public hostname, external OAuth 2.1/OIDC issuer, model-provider key and model, Redis, secret storage, and a container runtime.
