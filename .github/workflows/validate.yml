@@ -18,6 +18,8 @@ jobs:
         uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+      - name: Install test dependencies
+        run: python -m pip install -r requirements-dev.txt
       - name: Validate manifests, skills, Gateway routes, references, and schemas
         run: python scripts/validate_portability.py
       - name: Run Gateway contract tests
