@@ -97,7 +97,7 @@ class Settings:
         if not allowed_algorithms or not set(allowed_algorithms).issubset({"RS256", "ES256", "PS256"}):
             raise RuntimeError("OIDC_ALLOWED_ALGORITHMS may contain only RS256, ES256, and PS256")
 
-        oidc_issuer_url = os.getenv("OIDC_ISSUER_URL", "").rstrip("/")
+        oidc_issuer_url = os.getenv("OIDC_ISSUER_URL", "")
         oidc_jwks_url = os.getenv("OIDC_JWKS_URL", "")
         if app_env == "production":
             if urlsplit(oidc_issuer_url).scheme != "https":
