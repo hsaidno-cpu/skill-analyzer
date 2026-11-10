@@ -1,5 +1,5 @@
 {
-  "profile_version": "1.0.0",
+  "profile_version": "1.2.0",
   "profiles": {
     "generic": {
       "label": "Generic Agent Skills client",
