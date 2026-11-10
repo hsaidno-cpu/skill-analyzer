@@ -31,37 +31,37 @@ jobs:
       - name: Authenticate to Google Cloud with GitHub OIDC
         uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: \${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: \${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
 
       - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v3
         with:
-          project_id: \${{ vars.GCP_PROJECT_ID }}
+          project_id: ${{ vars.GCP_PROJECT_ID }}
 
       - name: Configure Artifact Registry Docker authentication
-        run: gcloud auth configure-docker "\${{ vars.GCP_REGION }}-docker.pkg.dev" --quiet
+        run: gcloud auth configure-docker "${{ vars.GCP_REGION }}-docker.pkg.dev" --quiet
 
       - name: Build and push immutable container image
         env:
-          PROJECT_ID: \${{ vars.GCP_PROJECT_ID }}
-          REGION: \${{ vars.GCP_REGION }}
-          IMAGE_TAG: \${{ github.sha }}
+          PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          REGION: ${{ vars.GCP_REGION }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           set -euo pipefail
-          IMAGE="\${REGION}-docker.pkg.dev/\${PROJECT_ID}/skill-analyzer/gateway:\${IMAGE_TAG}"
-          docker build --pull -t "\${IMAGE}" .
-          docker push "\${IMAGE}"
-          echo "IMAGE=\${IMAGE}" >> "$GITHUB_ENV"
+          IMAGE="${REGION}-docker.pkg.dev/${PROJECT_ID}/skill-analyzer/gateway:${IMAGE_TAG}"
+          docker build --pull -t "${IMAGE}" .
+          docker push "${IMAGE}"
+          echo "IMAGE=${IMAGE}" >> "$GITHUB_ENV"
 
       - name: Deploy image to Cloud Run
         env:
-          PROJECT_ID: \${{ vars.GCP_PROJECT_ID }}
-          REGION: \${{ vars.GCP_REGION }}
+          PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+          REGION: ${{ vars.GCP_REGION }}
         run: |
           set -euo pipefail
           gcloud run deploy skill-analyzer-gateway \
-            --project="\${PROJECT_ID}" \
-            --region="\${REGION}" \
-            --image="\${IMAGE}" \
+            --project="${PROJECT_ID}" \
+            --region="${REGION}" \
+            --image="${IMAGE}" \
             --quiet
