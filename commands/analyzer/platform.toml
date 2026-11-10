@@ -1,0 +1,3 @@
+prompt = """
+Use the SKILL ANALYZER Universal AI Invocation Gateway. Canonical command: platform. Target platform, version, product surface, and desired integration: {{args}}. Route to invocation-gateway and platform-compatibility. Verify official platform behavior, discovery path, invocation model, tools, delegation, state, permissions, and test evidence. Never claim runtime compatibility from static packaging alone.
+"""
