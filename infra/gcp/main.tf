@@ -38,7 +38,7 @@ resource "google_storage_bucket" "terraform_state" {
   public_access_prevention    = "enforced"
   force_destroy               = false
   versioning { enabled = true }
-  labels = var.labels
+  labels     = var.labels
   depends_on = [google_project_service.apis]
 }
 
@@ -234,11 +234,11 @@ resource "google_compute_managed_ssl_certificate" "gateway" {
 }
 
 resource "google_cloud_run_v2_service" "gateway" {
-  count    = var.deploy_service ? 1 : 0
-  project  = var.project_id
-  name     = local.service_name
-  location = var.region
-  ingress  = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
+  count               = var.deploy_service ? 1 : 0
+  project             = var.project_id
+  name                = local.service_name
+  location            = var.region
+  ingress             = "INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
   deletion_protection = true
   labels              = var.labels
 
