@@ -1,14 +1,14 @@
 output "public_api_url" {
   description = "Public HTTPS base URL."
-  value       = "https://\${var.api_domain}"
+  value       = "https://${var.api_domain}"
 }
 output "mcp_endpoint" {
   description = "Remote MCP endpoint and exact OIDC audience."
-  value       = "https://\${var.api_domain}/mcp"
+  value       = "https://${var.api_domain}/mcp"
 }
 output "http_api_endpoint" {
   description = "HTTP JSON invocation endpoint."
-  value       = "https://\${var.api_domain}/v1/invoke"
+  value       = "https://${var.api_domain}/v1/invoke"
 }
 output "load_balancer_ip" {
   description = "Global external IP reserved for the HTTPS load balancer."
@@ -20,7 +20,7 @@ output "dns_name_servers" {
 }
 output "artifact_registry_repository" {
   description = "Docker image repository URL."
-  value       = "\${var.region}-docker.pkg.dev/\${var.project_id}/\${google_artifact_registry_repository.gateway.repository_id}"
+  value       = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.gateway.repository_id}"
 }
 output "runtime_service_account" {
   description = "Least-privilege Cloud Run runtime identity."
