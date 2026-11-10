@@ -1,0 +1,38 @@
+name: Validate production infrastructure
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "infra/gcp/**"
+      - ".github/workflows/validate-infrastructure.yml"
+  pull_request:
+    paths:
+      - "infra/gcp/**"
+      - ".github/workflows/validate-infrastructure.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v7
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+
+      - name: Check Terraform formatting
+        run: terraform fmt -check -recursive infra/gcp
+
+      - name: Initialize providers without a cloud backend
+        working-directory: infra/gcp
+        run: terraform init -backend=false
+
+      - name: Validate Terraform configuration
+        working-directory: infra/gcp
+        run: terraform validate
