@@ -68,3 +68,14 @@ Report exact target(s), paths, package version, tests executed, unexecuted tests
 ## STOP CONDITIONS
 
 Stop any unsupported compatibility claim when vendor documentation is ambiguous, the runtime cannot be tested, a required capability is unavailable, or adapter changes would silently alter analytical behavior. Do not invent platform endpoints, marketplace IDs, repository URLs, or successful installation state.
+
+
+## HOSTED GATEWAY PROFILE
+
+For the `remote-gateway` profile, evaluate the deployed service rather than local skill discovery alone:
+- Verify public base URL, TLS certificate, `/mcp` Streamable HTTP transport, and `/v1/invoke` JSON API.
+- Verify protected-resource metadata and the configured OIDC issuer/audience/scope.
+- Verify the active model provider, Redis-backed quota, secret-manager configuration, and metadata-only audit pipeline.
+- Test 401 for missing/invalid token, 403 for insufficient scope, 429 for quota, and fail-closed 503 when Redis or provider dependencies are unavailable.
+- Record deployment region, service revision, provider/model, OIDC issuer identity, test request IDs, and observable results. Never record bearer tokens, API keys, prompts, completions, or private JWT claims.
+- Mark the service `DEPLOYED_AND_TESTED` only after the live endpoint and authenticated integration have been exercised. A Docker build or passing CI job is not live deployment evidence.
