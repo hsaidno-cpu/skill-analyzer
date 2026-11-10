@@ -61,6 +61,8 @@ class Settings:
             raise RuntimeError("MCP_RESOURCE_URL must use HTTPS in production")
         if not resource.netloc or resource.path != "/mcp":
             raise RuntimeError("MCP_RESOURCE_URL must be the full public MCP endpoint ending in /mcp")
+        if app_env == "production" and parsed_base.scheme != "https":
+            raise RuntimeError("PUBLIC_BASE_URL must use HTTPS in production")
 
         dev_tokens_raw = os.getenv("DEV_BEARER_TOKENS_JSON", "{}")
         try:
@@ -88,6 +90,21 @@ class Settings:
                 "http://127.0.0.1:6274",
             )
 
+        oidc_audience = os.getenv("OIDC_AUDIENCE", mcp_resource_url)
+        if oidc_audience != mcp_resource_url:
+            raise RuntimeError("OIDC_AUDIENCE must exactly match MCP_RESOURCE_URL to prevent resource-token confusion")
+        allowed_algorithms = _csv("OIDC_ALLOWED_ALGORITHMS", "RS256")
+        if not allowed_algorithms or not set(allowed_algorithms).issubset({"RS256", "ES256", "PS256"}):
+            raise RuntimeError("OIDC_ALLOWED_ALGORITHMS may contain only RS256, ES256, and PS256")
+
+        oidc_issuer_url = os.getenv("OIDC_ISSUER_URL", "").rstrip("/")
+        oidc_jwks_url = os.getenv("OIDC_JWKS_URL", "")
+        if app_env == "production":
+            if urlsplit(oidc_issuer_url).scheme != "https":
+                raise RuntimeError("OIDC_ISSUER_URL must use HTTPS in production")
+            if urlsplit(oidc_jwks_url).scheme != "https":
+                raise RuntimeError("OIDC_JWKS_URL must use HTTPS in production")
+
         rate_backend = os.getenv(
             "RATE_LIMIT_BACKEND",
             "redis" if app_env == "production" else "memory",
@@ -99,10 +116,10 @@ class Settings:
             app_env=app_env,
             public_base_url=public_base_url,
             mcp_resource_url=mcp_resource_url,
-            oidc_issuer_url=os.getenv("OIDC_ISSUER_URL", "").rstrip("/"),
-            oidc_jwks_url=os.getenv("OIDC_JWKS_URL", ""),
-            oidc_audience=os.getenv("OIDC_AUDIENCE", mcp_resource_url),
-            allowed_algorithms=_csv("OIDC_ALLOWED_ALGORITHMS", "RS256"),
+            oidc_issuer_url=oidc_issuer_url,
+            oidc_jwks_url=oidc_jwks_url,
+            oidc_audience=oidc_audience,
+            allowed_algorithms=allowed_algorithms,
             dev_bearer_tokens=dev_tokens,
             llm_base_url=os.getenv("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/"),
             llm_api_key=os.getenv("LLM_API_KEY", ""),
