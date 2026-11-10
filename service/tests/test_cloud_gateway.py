@@ -17,6 +17,8 @@ class CloudGatewayTests(unittest.IsolatedAsyncioTestCase):
         base = {
             "APP_ENV": "test",
             "PUBLIC_BASE_URL": "http://127.0.0.1:8000",
+            "MCP_RESOURCE_URL": "http://127.0.0.1:8000/mcp",
+            "OIDC_AUDIENCE": "http://127.0.0.1:8000/mcp",
             "DEV_BEARER_TOKENS_JSON": json.dumps({
                 "local-test-token": {
                     "sub": "test-client",
@@ -69,6 +71,44 @@ class CloudGatewayTests(unittest.IsolatedAsyncioTestCase):
         b = principal_fingerprint("person-123", "salt-b")
         self.assertNotEqual(a, b)
         self.assertNotIn("person-123", a)
+
+    def test_audience_must_match_exact_mcp_resource(self):
+        with self.assertRaises(RuntimeError):
+            self.make_settings(OIDC_AUDIENCE="http://127.0.0.1:8000")
+
+    def test_weak_or_unapproved_jwt_algorithm_is_rejected(self):
+        with self.assertRaises(RuntimeError):
+            self.make_settings(OIDC_ALLOWED_ALGORITHMS="HS256")
+
+    def test_http_surface_health_catalog_and_authentication(self):
+        from fastapi.testclient import TestClient
+
+        base = {
+            "APP_ENV": "test",
+            "PUBLIC_BASE_URL": "http://127.0.0.1:8000",
+            "MCP_RESOURCE_URL": "http://127.0.0.1:8000/mcp",
+            "OIDC_AUDIENCE": "http://127.0.0.1:8000/mcp",
+            "DEV_BEARER_TOKENS_JSON": json.dumps({
+                "local-test-token": {
+                    "sub": "test-client",
+                    "scopes": ["analyzer:invoke"]
+                }
+            }),
+            "RATE_LIMIT_BACKEND": "memory",
+        }
+        with patch.dict(os.environ, base, clear=True):
+            import importlib
+            import service.app.main as gateway_main
+            gateway_main = importlib.reload(gateway_main)
+            with TestClient(gateway_main.app, base_url="http://127.0.0.1:8000") as client:
+                self.assertEqual(client.get("/healthz").status_code, 200)
+                self.assertEqual(client.get("/v1/commands").status_code, 401)
+                response = client.get(
+                    "/v1/commands",
+                    headers={"Authorization": "Bearer local-test-token"},
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertGreaterEqual(len(response.json()["commands"]), 11)
 
     def test_production_configuration_fails_closed_without_oidc(self):
         env = {
