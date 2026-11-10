@@ -64,8 +64,8 @@ for skill_path in skill_files:
         fail(f"Unclosed YAML frontmatter: {skill_path.relative_to(ROOT)}")
         continue
     front = content[4:end]
-    name_match = re.search(r"^name:\\s*([a-z0-9-]+)\\s*$", front, re.M)
-    desc_match = re.search(r"^description:\\s*(.+)$", front, re.M)
+    name_match = re.search(r"^name:\s*([a-z0-9-]+)\s*$", front, re.M)
+    desc_match = re.search(r"^description:\s*(.+)$", front, re.M)
     folder = skill_path.parent.name
     check(bool(name_match), f"frontmatter name exists: {folder}")
     check(bool(desc_match and desc_match.group(1).strip()), f"frontmatter description exists: {folder}")
@@ -74,7 +74,7 @@ for skill_path in skill_files:
 
 # Local Markdown links.
 markdown_files = [*ROOT.glob("skills/**/*.md"), ROOT / "PORTABILITY.md", ROOT / "GATEWAY.md"]
-link_pattern = re.compile(r"\\[[^\\]]*\\]\\(([^)]+)\\)")
+link_pattern = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
 for md_path in markdown_files:
     if not md_path.exists():
         continue
