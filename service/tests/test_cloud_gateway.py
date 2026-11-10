@@ -77,6 +77,10 @@ class CloudGatewayTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(RuntimeError):
             self.make_settings(OIDC_AUDIENCE="http://127.0.0.1:8000")
 
+    def test_oidc_issuer_trailing_slash_is_preserved(self):
+        settings = self.make_settings(OIDC_ISSUER_URL="https://tenant.example.com/")
+        self.assertEqual(settings.oidc_issuer_url, "https://tenant.example.com/")
+
     def test_weak_or_unapproved_jwt_algorithm_is_rejected(self):
         with self.assertRaises(RuntimeError):
             self.make_settings(OIDC_ALLOWED_ALGORITHMS="HS256")
@@ -104,7 +108,12 @@ class CloudGatewayTests(unittest.IsolatedAsyncioTestCase):
             gateway_main = importlib.reload(gateway_main)
             with TestClient(gateway_main.app, base_url="http://127.0.0.1:8000") as client:
                 self.assertEqual(client.get("/healthz").status_code, 200)
-                self.assertEqual(client.get("/v1/commands").status_code, 401)
+                unauthorized = client.get("/v1/commands")
+                self.assertEqual(unauthorized.status_code, 401)
+                self.assertIn(
+                    "resource_metadata=",
+                    unauthorized.headers["WWW-Authenticate"],
+                )
                 response = client.get(
                     "/v1/commands",
                     headers={"Authorization": "Bearer local-test-token"},
