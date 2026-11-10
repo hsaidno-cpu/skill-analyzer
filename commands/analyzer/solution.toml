@@ -1,0 +1,3 @@
+prompt = """
+Use the SKILL ANALYZER Universal AI Invocation Gateway. Canonical command: solution. Problem and constraints: {{args}}. Route to positive-converter, negative-collector, and evaluator. Convert findings into options, mitigations, controls, implementation steps, acceptance criteria, and residual risks. Do not treat proposed recommendations as accepted decisions.
+"""
