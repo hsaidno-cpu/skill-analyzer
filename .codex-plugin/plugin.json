@@ -2,7 +2,7 @@
   "interface": {
     "displayName": "SKILL ANALYZER",
     "shortDescription": "Portable analysis engine",
-    "longDescription": "SKILL ANALYZER 1.2.0 menggabungkan sepuluh spesialis analisis inti, lima cross-skill engine, Universal AI Invocation Gateway, dan layanan cloud Remote MCP + HTTP API. Satu base URL menyajikan endpoint /mcp untuk MCP Streamable HTTP serta /v1/invoke untuk JSON API. Layanan memverifikasi token OAuth 2.1/OIDC, merutekan command melalui registry kanonis, memuat instruksi skill, memanggil provider model OpenAI-compatible, membatasi request menggunakan Redis, dan mencatat metadata audit tanpa menyimpan prompt, completion, atau credential. Cloud package tersedia untuk deploy pada container platform; endpoint publik baru aktif setelah deployment dan konfigurasi domain, identity provider, model provider, dan Redis. Tidak mengklaim sub-agent independen atau tool access yang belum dikonfigurasi.",
+    "longDescription": "SKILL ANALYZER 1.3.0 menggabungkan spesialis analisis, Universal AI Invocation Gateway, layanan cloud Remote MCP + HTTP API, dan Universal Access Manager. Access Manager mengorkestrasi enam subskill untuk consumer API key, autentikasi MCP, konektor MCP/API eksternal, credential vault, serta identity dan policy. Paket ini menyediakan spesifikasi skill dan kontrak routing portabel; penerbitan key, penyimpanan secret, dan koneksi outbound baru aktif setelah backend adapter, persistent store, KMS/secret manager, policy enforcement, serta egress controls tersedia dan diuji. Layanan cloud yang ada memverifikasi token OIDC eksternal, merutekan command, menggunakan provider model OpenAI-compatible, Redis rate limiting, dan metadata-only audit. Tidak mengklaim sub-agent independen atau tool execution yang belum dikonfigurasi.",
     "developerName": "Hary Saidno",
     "category": "Productivity",
     "capabilities": [
@@ -15,8 +15,8 @@
     ]
   },
   "name": "skill-analyzer",
-  "version": "1.2.0",
-  "description": "Sistem analisis modular dengan Universal AI Invocation Gateway, Remote MCP, HTTP API, autentikasi OIDC, routing terpusat, dan logging terkontrol.",
+  "version": "1.3.0",
+  "description": "Sistem analisis modular dengan Universal AI Invocation Gateway, Universal Access Manager, Remote MCP, HTTP API, autentikasi OIDC, routing terpusat, dan logging terkontrol.",
   "author": {
     "name": "Hary Saidno",
     "email": "harysaidno@gmail.com"
@@ -116,7 +116,29 @@
     "cloud deployment",
     "redis rate limiting",
     "privacy minimizing audit logging",
-    "hosted ai gateway"
+    "hosted ai gateway",
+    "universal access manager",
+    "api key manager",
+    "api key generation",
+    "api key rotation",
+    "api key revocation",
+    "mcp access management",
+    "custom mcp connector",
+    "custom api connector",
+    "rest api integration",
+    "http api integration",
+    "credential vault",
+    "secret management",
+    "envelope encryption",
+    "kms",
+    "identity policy engine",
+    "rbac",
+    "abac",
+    "least privilege",
+    "tenant isolation",
+    "ssrf protection",
+    "egress security",
+    "oauth 2.1 resource server"
   ],
   "skills": "./skills"
 }

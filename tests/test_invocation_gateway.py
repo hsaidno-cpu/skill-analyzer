@@ -28,6 +28,25 @@ class InvocationGatewayTests(unittest.TestCase):
     def test_gemini_group_alias_resolves(self):
         self.assertEqual(invoke.resolve_command("/analyzer compare", self.registry)["id"], "compare")
 
+    def test_access_command_routes_to_one_orchestrator_and_six_subskills(self):
+        envelope = invoke.build_envelope(
+            "access", "consumer API key lifecycle", self.registry, self.platforms
+        )
+        self.assertEqual(envelope["routing"]["primary_skills"], ["universal-access-manager"])
+        self.assertEqual(
+            set(envelope["routing"]["supporting_skills"]),
+            {
+                "api-key-manager",
+                "mcp-access-manager",
+                "custom-mcp-connector",
+                "custom-api-connector",
+                "credential-vault",
+                "identity-policy-engine",
+            },
+        )
+        self.assertIn("api_key_store", envelope["capability_readiness"]["conditional_capabilities"])
+        self.assertEqual(envelope["execution"]["status"], "PREPARED_NOT_EXECUTED")
+
     def test_unknown_command_is_rejected(self):
         with self.assertRaises(ValueError):
             invoke.resolve_command("invented-command", self.registry)
