@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic static/contract and harness-quality tests for SKILL ANALYZER 0.9.0.
+"""Deterministic static/contract and harness-quality tests for SKILL ANALYZER 1.1.0.
 
 This runner does NOT execute ChatGPT host routing, host engine activation, internal
 router traces, or external middleware enforcement. It validates the declarative
