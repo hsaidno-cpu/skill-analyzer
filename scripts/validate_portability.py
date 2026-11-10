@@ -155,9 +155,15 @@ if isinstance(registry, dict) and isinstance(platform_data, dict):
 # Required Gateway implementation files.
 required_files = [
     "GATEWAY.md", "GEMINI.md", "gemini-extension.json",
+    "CLOUD_DEPLOYMENT.md", "CLOUD_ARCHITECTURE.md",
     "gateway/registry.json", "gateway/platforms.json",
     "gateway/schemas/invocation.schema.json", "scripts/invoke.py",
     "tests/test_invocation_gateway.py", "scripts/export_platforms.py",
+    "requirements-cloud.txt", "Dockerfile",
+    "service/app/__init__.py", "service/app/config.py",
+    "service/app/auth.py", "service/app/audit.py", "service/app/limiter.py",
+    "service/app/provider.py", "service/app/runtime.py", "service/app/main.py",
+    "service/tests/test_cloud_gateway.py",
 ]
 for relative in required_files:
     check((ROOT / relative).is_file(), f"required Gateway file exists: {relative}")
