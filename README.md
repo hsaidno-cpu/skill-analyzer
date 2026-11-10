@@ -1,8 +1,15 @@
-# SKILL ANALYZER 1.1.0
+# SKILL ANALYZER 1.2.0
 
 **A modular, evidence-led analysis system with a portable Agent Skills core and a Universal AI Invocation Gateway.**
 
 SKILL ANALYZER combines ten analytical specialists, five shared engines, and two utility skills. The Universal AI Invocation Gateway adds a canonical command registry, platform invocation adapters, a JSON envelope contract, and a local prompt compiler.
+
+## What changed in 1.2.0
+
+- Adds a deployable cloud runtime for Remote MCP and JSON HTTP API on one public origin.
+- Adds OAuth 2.1/OIDC JWT verification, centralized command routing, OpenAI-compatible model execution, Redis rate limiting, and metadata-only audit logging.
+- Adds a Docker image, cloud deployment guide, remote-gateway profile, and cloud integration tests.
+- Local adapter installation is optional when using the hosted service: callers connect to the remote MCP endpoint or HTTP API.
 
 ## What changed in 1.1.0
 
@@ -57,3 +64,19 @@ After installation, use commands such as /analyzer:audit, /analyzer:compare, or 
 ## Reliability boundary
 
 The Gateway normalizes intent and prepares routing. The CLI does not call an AI model, grant platform tools, spawn agents, or persist execution traces. A passing package or static CI job does not prove that a particular host discovers a skill, selects the correct model behavior, executes a subagent, or produces correct conclusions. Platform-specific behavior must be tested and recorded against the exact host, model/provider, version, product surface, and evidence.
+
+
+## Hosted Universal Cloud Gateway
+
+The repository includes a deployable service package:
+
+- Remote MCP (Streamable HTTP): `https://YOUR_DOMAIN/mcp`
+- HTTP API: `https://YOUR_DOMAIN/v1/invoke`
+- Command discovery: `https://YOUR_DOMAIN/v1/commands`
+- Health/readiness: `/healthz` and `/readyz`
+
+Both protocols share one public base URL. A caller that uses the hosted service does not need to install local SKILL ANALYZER adapters or copy the skill directory. It needs an OAuth 2.1/OIDC access token with the `analyzer:invoke` scope.
+
+See [CLOUD_DEPLOYMENT.md](CLOUD_DEPLOYMENT.md) for local setup, production secrets, OIDC configuration, Redis, and a Cloud Run reference deployment. See [CLOUD_ARCHITECTURE.md](CLOUD_ARCHITECTURE.md) for trust boundaries.
+
+**Deployment status:** the service implementation is committed, but this repository has not provisioned a public cloud endpoint. A cloud account, domain, OIDC issuer, model API key, Redis service, and deployment operation are required before a public URL exists.
