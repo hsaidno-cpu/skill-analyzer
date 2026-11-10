@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hsaidno-cpu/skill-analyzer/blob/main/gateway/schemas/invocation.schema.json",
+  "title": "SKILL ANALYZER Universal Invocation Envelope",
+  "description": "Platform-neutral command, routing, capability, and execution-status contract. It prepares work for a host runtime; it does not execute a model call.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "request", "routing", "platform", "capability_readiness", "execution"],
+  "properties": {
+    "protocol": {"const":"urn:skill-analyzer:invocation:v1"},
+    "request": {
+      "type":"object","additionalProperties":false,
+      "required":["request_id","command","target","objective","mode","depth"],
+      "properties": {
+        "request_id":{"type":"string","minLength":8},
+        "command":{"type":"string"},
+        "original_command":{"type":"string"},
+        "target":{"type":"string","minLength":1},
+        "objective":{"type":"string"},
+        "scope":{"type":"string"},
+        "mode":{"type":"string"},
+        "depth":{"enum":["standard","deep","forensic"]},
+        "context":{"type":"string"},
+        "constraints":{"type":"array","items":{"type":"string"}},
+        "desired_output":{"type":"string"}
+      }
+    },
+    "routing": {
+      "type":"object","additionalProperties":false,
+      "required":["primary_skills","supporting_skills","engines","delegation_policy"],
+      "properties": {
+        "primary_skills":{"type":"array","items":{"type":"string"}},
+        "supporting_skills":{"type":"array","items":{"type":"string"}},
+        "engines":{"type":"array","items":{"type":"string"}},
+        "delegation_policy":{"enum":["host_native_if_verified_otherwise_sequential"]}
+      }
+    },
+    "platform": {
+      "type":"object","additionalProperties":false,
+      "required":["id","label","invocation_type","native_slash_command"],
+      "properties": {
+        "id":{"type":"string"},
+        "label":{"type":"string"},
+        "project_skill_paths":{"type":"array","items":{"type":"string"}},
+        "invocation_type":{"type":"string"},
+        "explicit_invocation":{"type":"string"},
+        "native_slash_command":{"type":["boolean","string"]},
+        "notes":{"type":"string"}
+      }
+    },
+    "capability_readiness": {
+      "type":"object","additionalProperties":false,
+      "required":["conditional_capabilities","statuses","blocked_branches","source"],
+      "properties": {
+        "conditional_capabilities":{"type":"array","items":{"type":"string"}},
+        "statuses":{"type":"object","additionalProperties":{"enum":["READY","READY_WITH_LIMITATIONS","BLOCKED","UNAVAILABLE","ACCESS_DENIED","NOT_CHECKED","EXPIRED","NOT_APPLICABLE"]}},
+        "blocked_branches":{"type":"array","items":{"type":"string"}},
+        "source":{"const":"user_declared_or_runtime_observed"}
+      }
+    },
+    "execution": {
+      "type":"object","additionalProperties":false,
+      "required":["status","mode","host_controls_execution"],
+      "properties": {
+        "status":{"const":"PREPARED_NOT_EXECUTED"},
+        "mode":{"enum":["host_native_if_verified_otherwise_sequential"]},
+        "host_controls_execution":{"const":true},
+        "warning":{"type":"string"}
+      }
+    },
+    "prompt":{"type":"string"}
+  }
+}
