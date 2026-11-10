@@ -112,22 +112,31 @@ async def _authenticate(
     credentials: HTTPAuthorizationCredentials | None = Depends(security),
 ) -> Any:
     if credentials is None or credentials.scheme.lower() != "bearer":
+        metadata_url = (
+            settings.public_base_url.rstrip("/")
+            + "/.well-known/oauth-protected-resource/mcp"
+        )
         raise HTTPException(
             status_code=401,
             detail={"code": "authentication_required"},
-            headers={"WWW-Authenticate": "Bearer"},
+            headers={"WWW-Authenticate": f'Bearer resource_metadata="{metadata_url}"'},
         )
     principal = await token_verifier.verify_token(credentials.credentials)
     if principal is None:
+        metadata_url = (
+            settings.public_base_url.rstrip("/")
+            + "/.well-known/oauth-protected-resource/mcp"
+        )
         raise HTTPException(
             status_code=401,
             detail={"code": "invalid_or_expired_token"},
-            headers={"WWW-Authenticate": "Bearer"},
+            headers={"WWW-Authenticate": f'Bearer resource_metadata="{metadata_url}"'},
         )
     if "analyzer:invoke" not in principal.scopes:
         raise HTTPException(
             status_code=403,
             detail={"code": "insufficient_scope", "required": "analyzer:invoke"},
+            headers={"WWW-Authenticate": 'Bearer error="insufficient_scope", scope="analyzer:invoke"'},
         )
     return principal
 
@@ -219,7 +228,11 @@ async def readyz():
             status_code=503,
             media_type="application/json",
         )
-    return {"status": "ready"}
+    return {
+        "status": "configured",
+        "provider_configuration": "ready",
+        "provider_connectivity": "NOT_CHECKED",
+    }
 
 
 @app.get("/v1/commands")
