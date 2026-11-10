@@ -1,8 +1,11 @@
 """Contract tests for the Universal AI Invocation Gateway."""
 from __future__ import annotations
 
+import json
 import sys
 import unittest
+
+import jsonschema
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +60,25 @@ class InvocationGatewayTests(unittest.TestCase):
                 "audit", "sample target", self.registry, self.platforms,
                 capability_declarations=["mcp=READY"]
             )
+
+    def test_generated_envelope_matches_json_schema(self):
+        envelope = invoke.build_envelope(
+            "/analyzer:audit", "sample target", self.registry, self.platforms,
+            platform_id="claude-code",
+            capability_declarations=["file_access=READY"]
+        )
+        schema_path = ROOT / "gateway" / "schemas" / "invocation.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        jsonschema.validate(envelope, schema)
+
+    def test_all_platform_profiles_can_prepare_invocations(self):
+        for platform_id in self.platforms["profiles"]:
+            with self.subTest(platform=platform_id):
+                envelope = invoke.build_envelope(
+                    "analyze", "sample target", self.registry, self.platforms,
+                    platform_id=platform_id
+                )
+                self.assertEqual(envelope["platform"]["id"], platform_id)
 
     def test_cli_never_claims_execution(self):
         envelope = invoke.build_envelope(
