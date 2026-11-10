@@ -55,7 +55,7 @@
         "conditional_capabilities":{"type":"array","items":{"type":"string"}},
         "statuses":{"type":"object","additionalProperties":{"enum":["READY","READY_WITH_LIMITATIONS","BLOCKED","UNAVAILABLE","ACCESS_DENIED","NOT_CHECKED","EXPIRED","NOT_APPLICABLE"]}},
         "blocked_branches":{"type":"array","items":{"type":"string"}},
-        "source":{"const":"user_declared_or_runtime_observed"}
+        "source":{"enum":["user_declared","runtime_observed","not_checked"]}
       }
     },
     "execution": {
