@@ -2,7 +2,7 @@
   "interface": {
     "displayName": "SKILL ANALYZER",
     "shortDescription": "Portable analysis engine",
-    "longDescription": "SKILL ANALYZER 1.1.0 menggabungkan sepuluh spesialis analisis inti, lima cross-skill engine, serta Universal AI Invocation Gateway. Gateway menyediakan command registry kanonis, alias normalization, adapter platform, JSON invocation envelope, dan CLI untuk menghasilkan prompt atau request terstruktur. skills/ dan gateway/ menjadi sumber kanonis. Adapter tersedia untuk OpenAI/Codex, Claude Code, GitHub Copilot, Gemini CLI, VS Code, Cursor, ChatGPT package, dan generic Agent Skills clients. Gateway mempersiapkan routing, bukan menjalankan model call, memberikan permission, atau menjamin runtime behavior. Evidence Registry, Residual Unknowns, Trace Graph, FIRE, Capability Readiness, Change Impact, Controlled Experiment, dan Information Authenticator tetap menjadi kontrol analitis inti.",
+    "longDescription": "SKILL ANALYZER 1.2.0 menggabungkan sepuluh spesialis analisis inti, lima cross-skill engine, Universal AI Invocation Gateway, dan layanan cloud Remote MCP + HTTP API. Satu base URL menyajikan endpoint /mcp untuk MCP Streamable HTTP serta /v1/invoke untuk JSON API. Layanan memverifikasi token OAuth 2.1/OIDC, merutekan command melalui registry kanonis, memuat instruksi skill, memanggil provider model OpenAI-compatible, membatasi request menggunakan Redis, dan mencatat metadata audit tanpa menyimpan prompt, completion, atau credential. Cloud package tersedia untuk deploy pada container platform; endpoint publik baru aktif setelah deployment dan konfigurasi domain, identity provider, model provider, dan Redis. Tidak mengklaim sub-agent independen atau tool access yang belum dikonfigurasi.",
     "developerName": "Hary Saidno",
     "category": "Productivity",
     "capabilities": [
@@ -15,8 +15,8 @@
     ]
   },
   "name": "skill-analyzer",
-  "version": "1.1.0",
-  "description": "Sistem analisis modular dengan sepuluh spesialis, lima engine, Universal AI Invocation Gateway, dan adapter Agent Skills lintas platform.",
+  "version": "1.2.0",
+  "description": "Sistem analisis modular dengan Universal AI Invocation Gateway, Remote MCP, HTTP API, autentikasi OIDC, routing terpusat, dan logging terkontrol.",
   "author": {
     "name": "Hary Saidno",
     "email": "harysaidno@gmail.com"
@@ -105,7 +105,18 @@
     "command registry",
     "platform invocation adapter",
     "structured invocation",
-    "cross-platform command routing"
+    "cross-platform command routing",
+    "remote mcp",
+    "mcp streamable http",
+    "http api gateway",
+    "oauth 2.1",
+    "oidc authentication",
+    "jwt verification",
+    "centralized routing",
+    "cloud deployment",
+    "redis rate limiting",
+    "privacy minimizing audit logging",
+    "hosted ai gateway"
   ],
   "skills": "./skills"
 }
