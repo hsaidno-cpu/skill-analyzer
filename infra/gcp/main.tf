@@ -1,7 +1,7 @@
 locals {
   service_name = "skill-analyzer-gateway"
-  mcp_url      = "https://\${var.api_domain}/mcp"
-  public_url   = "https://\${var.api_domain}"
+  mcp_url      = "https://${var.api_domain}/mcp"
+  public_url   = "https://${var.api_domain}"
   secret_names = {
     llm_api_key     = "skill-analyzer-llm-api-key"
     audit_hash_salt = "skill-analyzer-audit-hash-salt"
@@ -31,7 +31,7 @@ resource "google_project_service" "apis" {
 }
 
 resource "google_storage_bucket" "terraform_state" {
-  name                        = "\${var.project_id}-skill-analyzer-tfstate"
+  name                        = "${var.project_id}-skill-analyzer-tfstate"
   project                     = var.project_id
   location                    = var.state_bucket_location
   uniform_bucket_level_access = true
@@ -62,7 +62,7 @@ resource "google_compute_network" "gateway" {
 
 resource "google_compute_subnetwork" "gateway" {
   project                  = var.project_id
-  name                     = "skill-analyzer-\${var.region}"
+  name                     = "skill-analyzer-${var.region}"
   region                   = var.region
   network                  = google_compute_network.gateway.id
   ip_cidr_range            = "10.40.0.0/24"
@@ -127,7 +127,7 @@ resource "google_secret_manager_secret" "redis_url" {
 # This is an internal RFC1918 endpoint, not a password or public credential.
 resource "google_secret_manager_secret_version" "redis_url" {
   secret      = google_secret_manager_secret.redis_url.id
-  secret_data = "redis://\${google_redis_instance.gateway.host}:\${google_redis_instance.gateway.port}/0"
+  secret_data = "redis://${google_redis_instance.gateway.host}:${google_redis_instance.gateway.port}/0"
 }
 
 resource "google_service_account" "runtime" {
@@ -145,7 +145,7 @@ resource "google_secret_manager_secret_iam_member" "runtime_access" {
   project   = var.project_id
   secret_id = each.value
   role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:\${google_service_account.runtime.email}"
+  member    = "serviceAccount:${google_service_account.runtime.email}"
 }
 
 resource "google_iam_workload_identity_pool" "github" {
@@ -166,7 +166,7 @@ resource "google_iam_workload_identity_pool_provider" "github" {
     "attribute.repository" = "assertion.repository"
     "attribute.ref"        = "assertion.ref"
   }
-  attribute_condition = "assertion.repository == '\${var.github_repository}' && assertion.ref == 'refs/heads/main'"
+  attribute_condition = "assertion.repository == '${var.github_repository}' && assertion.ref == 'refs/heads/main'"
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
   }
@@ -181,25 +181,25 @@ resource "google_service_account" "github_deployer" {
 resource "google_project_iam_member" "github_artifact_writer" {
   project = var.project_id
   role    = "roles/artifactregistry.writer"
-  member  = "serviceAccount:\${google_service_account.github_deployer.email}"
+  member  = "serviceAccount:${google_service_account.github_deployer.email}"
 }
 
 resource "google_project_iam_member" "github_cloud_run_admin" {
   project = var.project_id
   role    = "roles/run.admin"
-  member  = "serviceAccount:\${google_service_account.github_deployer.email}"
+  member  = "serviceAccount:${google_service_account.github_deployer.email}"
 }
 
 resource "google_service_account_iam_member" "github_runtime_user" {
   service_account_id = google_service_account.runtime.name
   role               = "roles/iam.serviceAccountUser"
-  member             = "serviceAccount:\${google_service_account.github_deployer.email}"
+  member             = "serviceAccount:${google_service_account.github_deployer.email}"
 }
 
 resource "google_service_account_iam_member" "github_wif_user" {
   service_account_id = google_service_account.github_deployer.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/\${google_iam_workload_identity_pool.github.name}/attribute.repository/\${var.github_repository}"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github.name}/attribute.repository/${var.github_repository}"
 }
 
 resource "google_dns_managed_zone" "public" {
@@ -260,20 +260,62 @@ resource "google_cloud_run_v2_service" "gateway" {
           memory = "1Gi"
         }
       }
-      env { name = "APP_ENV" value = "production" }
-      env { name = "PUBLIC_BASE_URL" value = local.public_url }
-      env { name = "MCP_RESOURCE_URL" value = local.mcp_url }
-      env { name = "OIDC_ISSUER_URL" value = var.oidc_issuer_url }
-      env { name = "OIDC_JWKS_URL" value = var.oidc_jwks_url }
-      env { name = "OIDC_AUDIENCE" value = local.mcp_url }
-      env { name = "OIDC_ALLOWED_ALGORITHMS" value = "RS256" }
-      env { name = "LLM_BASE_URL" value = var.llm_base_url }
-      env { name = "LLM_MODEL" value = var.llm_model }
-      env { name = "RATE_LIMIT_BACKEND" value = "redis" }
-      env { name = "RATE_LIMIT_PER_MINUTE" value = "20" }
-      env { name = "MCP_ALLOWED_HOSTS" value = "\${var.api_domain},\${var.api_domain}:*" }
-      env { name = "MCP_ALLOWED_ORIGINS" value = var.allowed_web_origins }
-      env { name = "LOG_LEVEL" value = "INFO" }
+      env {
+        name  = "APP_ENV"
+        value = "production"
+      }
+      env {
+        name  = "PUBLIC_BASE_URL"
+        value = local.public_url
+      }
+      env {
+        name  = "MCP_RESOURCE_URL"
+        value = local.mcp_url
+      }
+      env {
+        name  = "OIDC_ISSUER_URL"
+        value = var.oidc_issuer_url
+      }
+      env {
+        name  = "OIDC_JWKS_URL"
+        value = var.oidc_jwks_url
+      }
+      env {
+        name  = "OIDC_AUDIENCE"
+        value = local.mcp_url
+      }
+      env {
+        name  = "OIDC_ALLOWED_ALGORITHMS"
+        value = "RS256"
+      }
+      env {
+        name  = "LLM_BASE_URL"
+        value = var.llm_base_url
+      }
+      env {
+        name  = "LLM_MODEL"
+        value = var.llm_model
+      }
+      env {
+        name  = "RATE_LIMIT_BACKEND"
+        value = "redis"
+      }
+      env {
+        name  = "RATE_LIMIT_PER_MINUTE"
+        value = "20"
+      }
+      env {
+        name  = "MCP_ALLOWED_HOSTS"
+        value = "${var.api_domain},${var.api_domain}:*"
+      }
+      env {
+        name  = "MCP_ALLOWED_ORIGINS"
+        value = var.allowed_web_origins
+      }
+      env {
+        name  = "LOG_LEVEL"
+        value = "INFO"
+      }
       env {
         name = "LLM_API_KEY"
         value_source {
@@ -302,13 +344,13 @@ resource "google_cloud_run_v2_service" "gateway" {
         }
       }
     }
-    depends_on = [
-      google_secret_manager_secret_version.redis_url,
-      google_secret_manager_secret_iam_member.runtime_access,
-      google_service_networking_connection.private_services
-    ]
   }
-  depends_on = [google_project_service.apis]
+  depends_on = [
+    google_project_service.apis,
+    google_secret_manager_secret_version.redis_url,
+    google_secret_manager_secret_iam_member.runtime_access,
+    google_service_networking_connection.private_services
+  ]
   lifecycle {
     # Image tags are updated only by the GitHub Actions deployment workflow.
     ignore_changes = [template[0].containers[0].image]
@@ -404,7 +446,7 @@ resource "google_dns_record_set" "gateway_a" {
   count        = var.deploy_service ? 1 : 0
   project      = var.project_id
   managed_zone = google_dns_managed_zone.public.name
-  name         = "\${var.api_domain}."
+  name         = "${var.api_domain}."
   type         = "A"
   ttl          = 300
   rrdatas      = [google_compute_global_address.https.address]
