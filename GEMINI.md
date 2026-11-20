@@ -14,7 +14,8 @@ The extension adds custom prompt commands under commands/analyzer/. Each command
 - /analyzer:solution
 - /analyzer:decision
 - /analyzer:platform
+- /analyzer:access
 
-Treat the command files as prompt shortcuts, not as independent analytical implementations. Load the selected canonical skill instructions and supporting references from skills/.
+Treat the command files as prompt shortcuts, not as independent implementations. For /analyzer:access, load universal-access-manager and only the required Access Manager subskills. Load supporting references from skills/.
 
 Do not assume an MCP server, web access, shell, Git write access, persistence, or separate subagents are available. Check the actual Gemini CLI configuration before a tool-dependent operation. Keep execution status separate from command preparation, and never claim that a command ran unless the model actually performs the work.

@@ -1,8 +1,15 @@
-# SKILL ANALYZER 1.2.0
+# SKILL ANALYZER 1.3.0
 
 **A modular, evidence-led analysis system with a portable Agent Skills core and a Universal AI Invocation Gateway.**
 
-SKILL ANALYZER combines ten analytical specialists, five shared engines, and two utility skills. The Universal AI Invocation Gateway adds a canonical command registry, platform invocation adapters, a JSON envelope contract, and a local prompt compiler.
+SKILL ANALYZER combines ten analytical specialists, five shared engines, two utility skills, and the Universal Access Manager orchestrator with six access subskills. The Universal AI Invocation Gateway provides a canonical command registry, platform invocation adapters, a JSON envelope contract, and a local prompt compiler.
+
+## What changed in 1.3.0
+
+- Adds Universal Access Manager as one orchestrator with six specialist skills for consumer API keys, inbound MCP access, outbound MCP/REST connectors, credential vault, and identity/policy enforcement.
+- Adds the canonical Gateway command access and the Gemini CLI shortcut /analyzer:access.
+- Adds Access Manager architecture, trust boundaries, security invariants, runtime acceptance criteria, tests, and portability validation.
+- Explicitly labels key issuance, credential storage, and outbound connectors as backend-dependent capabilities, not active features of the existing runtime.
 
 ## What changed in 1.2.0
 
@@ -23,9 +30,9 @@ SKILL ANALYZER combines ten analytical specialists, five shared engines, and two
 
 ## Core architecture
 
-The master orchestrator routes to ten analytical responsibilities: analytical-collector, analyzer, negative-collector, positive-converter, evidence-auditor, strategic-foresight, evaluator, komparator, comparative-analytic, and information-authenticator. Five engines provide shared procedures for decisions, human impact/governance, benchmark/regression, knowledge/method intelligence, and FIRE.
+The analytical master orchestrator routes to ten responsibilities: analytical-collector, analyzer, negative-collector, positive-converter, evidence-auditor, strategic-foresight, evaluator, komparator, comparative-analytic, and information-authenticator. Five engines provide shared procedures for decisions, human impact/governance, benchmark/regression, knowledge/method intelligence, and FIRE.
 
-The two utility skills, platform-compatibility and invocation-gateway, maintain distribution and access. They are not additional analytical specialists.
+The two utility skills, platform-compatibility and invocation-gateway, maintain distribution and invocation. Separately, universal-access-manager routes six access specialists: api-key-manager, mcp-access-manager, custom-mcp-connector, custom-api-connector, credential-vault, and identity-policy-engine.
 
 ## Quick start
 
@@ -49,7 +56,7 @@ python scripts/export_platforms.py --target all --output ./dist
 python -m unittest discover -s tests -v
 ~~~~
 
-See [GATEWAY.md](GATEWAY.md) for command syntax, installation, platform-specific invocation, and the JSON contract. See [PORTABILITY.md](PORTABILITY.md) for distribution profiles and compatibility boundaries.
+See [GATEWAY.md](GATEWAY.md) for command syntax, installation, platform-specific invocation, and the JSON contract. See [ACCESS_MANAGER.md](ACCESS_MANAGER.md) for access orchestration and security boundaries. See [PORTABILITY.md](PORTABILITY.md) for distribution profiles and compatibility boundaries.
 
 ## Gemini CLI quick install
 
@@ -59,7 +66,7 @@ The repository root includes a Gemini extension manifest, context entrypoint, bu
 gemini extensions install https://github.com/hsaidno-cpu/skill-analyzer
 ~~~~
 
-After installation, use commands such as /analyzer:audit, /analyzer:compare, or /analyzer:forecast. Verify the extension and skills with the relevant Gemini CLI list commands.
+After installation, use commands such as /analyzer:audit, /analyzer:compare, /analyzer:forecast, or /analyzer:access. Verify the extension and skills with the relevant Gemini CLI list commands.
 
 ## Reliability boundary
 

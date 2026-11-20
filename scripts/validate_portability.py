@@ -17,6 +17,9 @@ EXPECTED_SKILLS = {
     "positive-converter", "evidence-auditor", "strategic-foresight", "evaluator",
     "komparator", "comparative-analytic", "information-authenticator",
     "platform-compatibility", "invocation-gateway",
+    "universal-access-manager", "api-key-manager", "mcp-access-manager",
+    "custom-mcp-connector", "custom-api-connector", "credential-vault",
+    "identity-policy-engine",
 }
 
 def fail(message: str) -> None:
@@ -51,7 +54,7 @@ if isinstance(root_manifest, dict) and isinstance(codex_manifest, dict):
 skills_root = ROOT / "skills"
 skill_files = sorted(skills_root.glob("*/SKILL.md"))
 skill_names = {path.parent.name for path in skill_files}
-check(EXPECTED_SKILLS.issubset(skill_names), "all ten specialists, master orchestrator, and two utility skills are present")
+check(EXPECTED_SKILLS.issubset(skill_names), "all analytical, utility, and seven Access Manager skills are present")
 check(len(skill_files) == len(skill_names), "one SKILL.md per skill directory")
 
 for skill_path in skill_files:
@@ -137,6 +140,16 @@ if isinstance(registry, dict) and isinstance(platform_data, dict):
         for skill in item.get("primary_skills", []) + item.get("supporting_skills", []):
             check(skill in skill_names, f"Gateway route references existing skill: {command_id} -> {skill}")
 
+    access_route = next((item for item in commands if isinstance(item, dict) and item.get("id") == "access"), None)
+    check(isinstance(access_route, dict), "Access Manager command is registered")
+    if isinstance(access_route, dict):
+        check(access_route.get("primary_skills") == ["universal-access-manager"], "Access command has one canonical orchestrator")
+        expected_access_subskills = {
+            "api-key-manager", "mcp-access-manager", "custom-mcp-connector",
+            "custom-api-connector", "credential-vault", "identity-policy-engine",
+        }
+        check(set(access_route.get("supporting_skills", [])) == expected_access_subskills, "Access command routes all six dedicated subskills")
+
     # Ensure the Gemini extension has one custom command per canonical command ID.
     gemini_manifest = read_json(ROOT / "gemini-extension.json")
     if isinstance(gemini_manifest, dict) and isinstance(root_manifest, dict):
@@ -154,7 +167,7 @@ if isinstance(registry, dict) and isinstance(platform_data, dict):
 
 # Required Gateway implementation files.
 required_files = [
-    "GATEWAY.md", "GEMINI.md", "gemini-extension.json",
+    "GATEWAY.md", "GEMINI.md", "gemini-extension.json", "ACCESS_MANAGER.md",
     "CLOUD_DEPLOYMENT.md", "CLOUD_ARCHITECTURE.md",
     "gateway/registry.json", "gateway/platforms.json",
     "gateway/schemas/invocation.schema.json", "scripts/invoke.py",

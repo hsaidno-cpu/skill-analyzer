@@ -1,0 +1,27 @@
+# Copy to terraform.tfvars. Never commit terraform.tfvars.
+project_id = "REPLACE_WITH_EXISTING_GCP_PROJECT_ID"
+region     = "asia-southeast1"
+
+# You must own this domain and control registrar/DNS delegation.
+api_domain        = "api.example.com"
+dns_zone_name     = "skill-analyzer-public"
+dns_zone_dns_name = "example.com."
+
+github_repository = "hsaidno-cpu/skill-analyzer"
+
+# First apply: false creates network, Redis, Artifact Registry, secret containers,
+# DNS zone, WIF, and Terraform state bucket. Set true only after all credentials exist.
+deploy_service = false
+
+# Fill these in before enabling the service.
+oidc_issuer_url = "https://YOUR_TENANT_DOMAIN/"
+oidc_jwks_url   = "https://YOUR_TENANT_DOMAIN/.well-known/jwks.json"
+llm_base_url    = "https://api.openai.com/v1"
+llm_model       = "REPLACE_WITH_MODEL_ID_SUPPORTED_BY_YOUR_PROVIDER"
+
+# Optional comma-separated browser origins. Keep empty for server-to-server clients.
+allowed_web_origins = ""
+
+min_instance_count = 0
+max_instance_count = 10
+redis_memory_gb     = 1
