@@ -2,6 +2,7 @@
 
 **Gateway contract:** urn:skill-analyzer:invocation:v1  
 **Introduced in package:** 1.1.0  
+**Access Manager added:** 1.3.0  
 **Canonical registry:** gateway/registry.json
 
 The Universal AI Invocation Gateway (UAIG) gives different AI runtimes one shared command vocabulary and routing contract. It separates the user's intent from each host's syntax for loading skills.
@@ -38,6 +39,7 @@ The Gateway does **not** make every platform expose the same native command, gra
 | solution | Mitigation and implementation engineering | positive-converter, negative-collector, evaluator |
 | decision | Decision intelligence and trade-off analysis | skill-analyzer plus Decision Intelligence Engine |
 | platform | Compatibility, adapter, and invocation audit | invocation-gateway, platform-compatibility |
+| access | Identity, API key, MCP, REST/HTTP connector, vault, and policy access management | universal-access-manager plus six access specialists |
 
 Aliases and engine routing are maintained only in gateway/registry.json.
 
@@ -179,6 +181,8 @@ For a complete validated structure, use the schema file. Capability statuses mus
 - Prompt instructions are not a security boundary. Use host permissions, sandbox policy, MCP authorization, or external middleware for enforceable controls.
 
 ## 8. Extending the Gateway
+
+The Access Manager command routes to one orchestrator and six dedicated subskills. See [ACCESS_MANAGER.md](ACCESS_MANAGER.md) for trust boundaries, required controls, and explicit runtime readiness limits.
 
 To add a command:
 1. Add one canonical record to gateway/registry.json.
